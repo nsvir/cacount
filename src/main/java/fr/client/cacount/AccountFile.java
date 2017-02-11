@@ -3,6 +3,7 @@ package fr.client.cacount;
 import android.os.Environment;
 
 import java.io.*;
+import java.util.Calendar;
 
 /**
  * Created by svirch_n on 11/02/17.
@@ -11,7 +12,8 @@ public class AccountFile {
 
     public static AccountFile Instance = new AccountFile();
     private BufferedReader bufferedReader;
-    private float total;
+    private double total;
+    private int day;
 
     public AccountFile() {
         try {
@@ -23,16 +25,27 @@ public class AccountFile {
     }
 
     private void parseFile(BufferedReader bufferedReader) throws IOException {
+        boolean first = true;
         String line;
         total = 0;
         while ((line = bufferedReader.readLine()) != null) {
             String[] split = line.split(",");
-            float number = Float.parseFloat(split[split.length - 1]);
+            if (first){
+                Calendar instance = Calendar.getInstance();
+                int today = instance.get(Calendar.DATE);
+                day = today - Integer.parseInt(split[0].split("/")[1]);
+                first = false;
+            }
+            double number = Double.parseDouble(split[split.length - 1]);
             total += number;
         }
     }
 
-    public float getTotal() {
+    public double getTotal() {
         return total;
+    }
+
+    public double getEarnedMoney() {
+        return Cacount.RATIO * day;
     }
 }

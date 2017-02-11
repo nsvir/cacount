@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import java.util.Locale;
+
 public class MainActivity extends Activity
 {
     /** Called when the activity is first created. */
@@ -18,8 +20,10 @@ public class MainActivity extends Activity
     }
 
     public static void updateNotification(Context context) {
-        float total = AccountFile.Instance.getTotal();
-        DefaultNotificationBuilder builder = new DefaultNotificationBuilder(context, total + "€!", "Hum it's getting better");
+        double total = AccountFile.Instance.getTotal();
+        double earnedMoney = AccountFile.Instance.getEarnedMoney();
+        DefaultNotificationBuilder builder = new DefaultNotificationBuilder(context, String.format(Locale.FRANCE, "%.2f€", (earnedMoney - total), Cacount.RATIO),
+                "Next day: +" + Cacount.RATIO + "€");
         builder.buildAndNotify();
     }
 }

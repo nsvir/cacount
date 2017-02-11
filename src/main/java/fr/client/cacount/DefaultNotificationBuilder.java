@@ -15,7 +15,9 @@ public class DefaultNotificationBuilder extends NotificationBuilder {
         super(context);
 
         setContentTitle(title);
-        setContentText(content);
+        if (content != null) {
+            setContentText(content);
+        }
         setSmallIcon(R.drawable.ic_launcher);
         setPriority(PRIORITY);
         setOngoing(true);
