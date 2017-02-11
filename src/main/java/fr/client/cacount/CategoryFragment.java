@@ -18,7 +18,7 @@ public class CategoryFragment extends ListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new StringBaseAdapter(getContext(), new String[]{"Alimentaire", "Transport", "Logistique", "Soin/Santé"}));
+        setListAdapter(new StringBaseAdapter(getContext(), Cacount.CATEGORY_LIST));
 
     }
 
