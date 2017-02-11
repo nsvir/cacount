@@ -1,6 +1,7 @@
 package fr.client.cacount;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 public class MainActivity extends Activity
@@ -11,11 +12,14 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-	    this.setFinishOnTouchOutside(true);
 
-        DefaultNotificationBuilder builder = new DefaultNotificationBuilder(this, "Notification", "Tu es à la deche!");
-        builder.buildAndNotify();
-
+        updateNotification(this);
         finish();
+    }
+
+    public static void updateNotification(Context context) {
+        float total = AccountFile.Instance.getTotal();
+        DefaultNotificationBuilder builder = new DefaultNotificationBuilder(context, total + "€!", "Hum it's getting better");
+        builder.buildAndNotify();
     }
 }
