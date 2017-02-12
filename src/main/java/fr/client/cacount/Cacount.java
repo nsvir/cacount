@@ -6,6 +6,6 @@ package fr.client.cacount;
 public class Cacount {
 
     public static final String[] CATEGORY_LIST = {"Alimentaire", "Transport", "Logistique", "Soirée", "Autre", "Soin/Santé"};
-    public static final double RATIO = 10.21;
+    public static double RATIO = 10.21;
 
 }
