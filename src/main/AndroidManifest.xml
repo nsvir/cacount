@@ -21,7 +21,6 @@
         android:theme="@style/DialogTheme"
         android:excludeFromRecents="true"
         android:noHistory="true"
-
         />
     </application>
 
