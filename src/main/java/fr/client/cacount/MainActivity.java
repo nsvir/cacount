@@ -12,6 +12,7 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        new UpdateAlarm(this);
         UpdateActivity.updateNotification(this);
         finish();
     }

@@ -28,6 +28,8 @@
             android:exported="true"
             android:excludeFromRecents="true"
             android:noHistory="true"/>
+
+        <receiver android:name=".UpdateAlarm" />
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
