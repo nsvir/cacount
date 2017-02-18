@@ -23,6 +23,12 @@ public class InsertActivity extends FragmentActivity {
         setFragment(new CategoryFragment());
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        UpdateActivity.updateNotification(this);
+    }
+
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if (current == null) {
