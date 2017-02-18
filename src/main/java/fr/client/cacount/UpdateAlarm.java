@@ -48,7 +48,9 @@ public class UpdateAlarm extends BroadcastReceiver {
     }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context, Intent intent)
+    {
         UpdateActivity.updateNotification(context);
+        new UpdateAlarm(context);
     }
 }
