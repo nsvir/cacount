@@ -1,4 +1,4 @@
-package fr.client.cacount.services.io;
+package fr.client.cacount.services.io.reader;
 
 import java.io.IOException;
 

@@ -1,10 +1,10 @@
 package fr.client.cacount.services.account;
 
 
-import fr.client.cacount.services.io.ALineReaderManager;
+import fr.client.cacount.services.io.manager.ALineManager;
 import fr.client.cacount.Cacount;
-import fr.client.cacount.services.io.LineReader;
-import fr.client.cacount.services.io.LineReaderManager;
+import fr.client.cacount.services.io.reader.LineReader;
+import fr.client.cacount.services.io.manager.LineManager;
 import fr.client.cacount.services.calendar.*;
 
 import java.io.*;
@@ -25,12 +25,16 @@ public class AccountFile {
 
     public static AccountFile getInstance() {
         if (instance == null) {
-            instance = new AccountFile(new LineReaderManager(), new fr.client.cacount.services.calendar.Calendar());
+            try {
+                instance = new AccountFile(new LineManager(), new fr.client.cacount.services.calendar.Calendar());
+            } catch (IOException e) {
+                throw new RuntimeException("Could not manipulate file: " + Cacount.FILENAME);
+            }
         }
         return instance;
     }
 
-    protected AccountFile(ALineReaderManager lineReaderManager, ACalendar calendar) {
+    protected AccountFile(ALineManager lineReaderManager, ACalendar calendar) {
         this.calendar = calendar;
         try {
             lineReader = lineReaderManager.getLineReaderFile();

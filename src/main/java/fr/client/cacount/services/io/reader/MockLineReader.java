@@ -1,6 +1,4 @@
-package fr.client.cacount.services.io;
-
-import fr.client.cacount.services.io.LineReader;
+package fr.client.cacount.services.io.reader;
 
 import java.io.IOException;
 
@@ -9,8 +7,11 @@ import java.io.IOException;
  */
 public class MockLineReader extends LineReader {
 
-    private final String[] lines;
+    private String[] lines;
     int i = 0;
+
+    MockLineReader() {
+    }
 
     public MockLineReader(String[] lines) {
         super();

@@ -1,4 +1,4 @@
-package fr.client.cacount.services.io;
+package fr.client.cacount.services.io.reader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,4 +19,5 @@ public class BufferedLineReader extends LineReader {
     public String readLine() throws IOException {
         return bufferedReader.readLine();
     }
+
 }

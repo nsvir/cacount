@@ -2,8 +2,7 @@ package fr.client.cacount.services.account;
 
 import fr.client.cacount.Cacount;
 import fr.client.cacount.services.calendar.MockCalendar;
-import fr.client.cacount.services.io.LineReader;
-import fr.client.cacount.services.io.MockLineReaderManager;
+import fr.client.cacount.services.io.manager.MockLineManager;
 import fr.client.cacount.services.utils.CSVLineCreator;
 import org.junit.Test;
 
@@ -43,7 +42,7 @@ public class AccountFileTest {
         strings.add(lineCreator.price("-20.34").toString());
         strings.add(lineCreator.price("47.53").toString());
         double expectedAutre = 47.37;
-        AccountFile accountFile = new AccountFile(new MockLineReaderManager(strings.toArray(new String[strings.size()])), new MockCalendar());
+        AccountFile accountFile = new AccountFile(new MockLineManager().reader(strings.toArray(new String[strings.size()])), new MockCalendar());
         for (Map.Entry<String, BigDecimal> each : accountFile.getCategoriesTotal().entrySet()) {
             switch (each.getKey()) {
                 case ALIMENTAIRE:
@@ -72,7 +71,7 @@ public class AccountFileTest {
                 CSVLineCreator.price("30.254"),
                 CSVLineCreator.price("500.9"),
         };
-        AccountFile accountFile = new AccountFile(new MockLineReaderManager(entries), new MockCalendar());
+        AccountFile accountFile = new AccountFile(new MockLineManager().reader(entries), new MockCalendar());
         assertEquals(553.084, accountFile.getTotal().doubleValue());
     }
 
@@ -81,7 +80,7 @@ public class AccountFileTest {
         double ratio = 5;
         int days = 10;
         Cacount.RATIO = BigDecimal.valueOf(ratio);
-        AccountFile accountFile = new AccountFile(new MockLineReaderManager(), new MockCalendar(days));
+        AccountFile accountFile = new AccountFile(new MockLineManager(), new MockCalendar(days));
         assertEquals(ratio * days, accountFile.getEarnedMoney().doubleValue());
     }
 
@@ -94,7 +93,7 @@ public class AccountFileTest {
 
         String[] lines = {CSVLineCreator.date(CSVLineCreator.day(firstDay))};
 
-        AccountFile accountFile = new AccountFile(new MockLineReaderManager(lines), new MockCalendar(days));
+        AccountFile accountFile = new AccountFile(new MockLineManager().reader(lines), new MockCalendar(days));
         assertEquals(ratio * (days - firstDay), accountFile.getEarnedMoney().doubleValue());
     }
 
@@ -102,7 +101,7 @@ public class AccountFileTest {
     public void getDay() throws Exception {
         int date = 10;
         int insertionDate = 1;
-        AccountFile accountFile = new AccountFile(new MockLineReaderManager(new String[]{"01/10/2016, 08:34:50, CATEGORY, LABEL, 13.2"}), new MockCalendar(date));
+        AccountFile accountFile = new AccountFile(new MockLineManager().reader(new String[]{"01/10/2016, 08:34:50, CATEGORY, LABEL, 13.2"}), new MockCalendar(date));
         assertEquals(date - insertionDate, accountFile.getDay().intValue());
     }
 
