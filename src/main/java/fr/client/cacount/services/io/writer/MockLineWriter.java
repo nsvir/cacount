@@ -21,4 +21,9 @@ public class MockLineWriter extends LineWriter {
         }
         index++;
     }
+
+    @Override
+    public void close() {
+
+    }
 }

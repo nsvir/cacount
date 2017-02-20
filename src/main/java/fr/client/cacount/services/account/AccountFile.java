@@ -26,7 +26,7 @@ public class AccountFile {
     public static AccountFile getInstance() {
         if (instance == null) {
             try {
-                instance = new AccountFile(new LineManager(), new fr.client.cacount.services.calendar.Calendar());
+                instance = new AccountFile(new LineManager(Cacount.FILENAME), new fr.client.cacount.services.calendar.Calendar());
             } catch (IOException e) {
                 throw new RuntimeException("Could not manipulate file: " + Cacount.FILENAME);
             }

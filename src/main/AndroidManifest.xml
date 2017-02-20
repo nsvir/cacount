@@ -8,28 +8,32 @@
         android:label="@string/app_name"
         android:icon="@drawable/ic_launcher"
         android:noHistory="true">
+        <activity android:name=".test.WriteFile">
+            <!-- CAUTON! Removed testFile.csv -->
+        </activity>
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name="fr.client.cacount.view.activity.MainActivity"
             android:label="@string/app_name">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activity.InsertActivity"
+            android:name="fr.client.cacount.view.activity.InsertActivity"
             android:theme="@style/DialogTheme"
             android:excludeFromRecents="true"
             android:noHistory="true"
             android:exported="true"
             />
         <activity
-            android:name=".view.activity.UpdateActivity"
+            android:name="fr.client.cacount.view.activity.UpdateActivity"
             android:exported="true"
             android:excludeFromRecents="true"
             android:noHistory="true"/>
 
-        <receiver android:name=".view.utils.UpdateAlarm" />
+        <receiver android:name="fr.client.cacount.view.utils.UpdateAlarm" />
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

@@ -19,4 +19,14 @@ public class BufferedLineWriter extends LineWriter {
         bufferedWriter.write(line);
         bufferedWriter.newLine();
     }
+
+    @Override
+    public void close() {
+        try {
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

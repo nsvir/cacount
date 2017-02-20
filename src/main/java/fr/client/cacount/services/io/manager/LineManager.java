@@ -15,11 +15,17 @@ import java.io.*;
 public class LineManager implements ALineManager {
 
     private final File file;
-    private final BufferedLineReader bufferedLineReader;
-    private final BufferedLineWriter bufferedLineWriter;
+    private BufferedLineReader bufferedLineReader;
+    private BufferedLineWriter bufferedLineWriter;
 
-    public LineManager() throws IOException {
-        file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), Cacount.FILENAME);
+    public LineManager(String filename) throws IOException {
+        file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
+        //noinspection ResultOfMethodCallIgnored
+        file.createNewFile();
+        init();
+    }
+
+    private void init() throws IOException {
         bufferedLineReader = new BufferedLineReader(new BufferedReader(new FileReader(file)));
         bufferedLineWriter = new BufferedLineWriter(new BufferedWriter(new FileWriter(file)));
     }
@@ -32,5 +38,23 @@ public class LineManager implements ALineManager {
     @Override
     public LineWriter getLineWriterFile() throws FileNotFoundException {
         return bufferedLineWriter;
+    }
+
+    public void clearFile() {
+        this.delete();
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete() {
+        file.delete();
     }
 }

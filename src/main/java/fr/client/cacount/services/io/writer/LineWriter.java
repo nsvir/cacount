@@ -9,4 +9,5 @@ public abstract class LineWriter {
 
     public abstract void writeLine(String line) throws IOException;
 
+    public abstract void close();
 }
