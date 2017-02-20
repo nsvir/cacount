@@ -5,6 +5,8 @@ package fr.client.cacount.services.calendar;
  */
 public class MockCalendar extends ACalendar {
 
+    public static final String DEFAULT_DATE = "01/01/2017";
+    public static final String DEFAULT_TIME = "13:30:00";
     private final int date;
 
     public MockCalendar(int date) {
@@ -19,5 +21,15 @@ public class MockCalendar extends ACalendar {
     @Override
     public int today() {
         return date;
+    }
+
+    @Override
+    public String nowDate() {
+        return DEFAULT_DATE;
+    }
+
+    @Override
+    public String nowTime() {
+        return DEFAULT_TIME;
     }
 }

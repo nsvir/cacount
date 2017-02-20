@@ -17,7 +17,7 @@ public class MockLineWriter extends LineWriter {
     @Override
     public void writeLine(String line) throws IOException {
         if (!expected[index].equals(line)) {
-            throw new RuntimeException("Index: " + index + "Expected: " + expected[index] + "Actual: " + line);
+            throw new RuntimeException("Index: " + index + " Expected: " + expected[index] + " Actual: " + line);
         }
         index++;
     }

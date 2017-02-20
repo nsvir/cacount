@@ -1,11 +1,16 @@
 package fr.client.cacount.services.account;
 
 
+import fr.client.cacount.utils.log.AndroidLog;
+import fr.client.cacount.utils.log.Log;
 import fr.client.cacount.services.io.manager.ALineManager;
 import fr.client.cacount.Cacount;
 import fr.client.cacount.services.io.reader.LineReader;
 import fr.client.cacount.services.io.manager.LineManager;
 import fr.client.cacount.services.calendar.*;
+import fr.client.cacount.services.io.writer.LineWriter;
+import fr.client.cacount.services.utils.CSVLineCreator;
+import fr.client.cacount.utils.log.MockLog;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -22,26 +27,27 @@ public class AccountFile {
     private BigDecimal day;
     protected ACalendar calendar;
     private List<AccountEntry> entries;
+    private final LineWriter lineWriterFile;
+    private Log log = new MockLog();
 
     public static AccountFile getInstance() {
         if (instance == null) {
             try {
                 instance = new AccountFile(new LineManager(Cacount.FILENAME), new fr.client.cacount.services.calendar.Calendar());
-            } catch (IOException e) {
+                instance.log = new AndroidLog();
+            } catch (IOException | ParserException e) {
                 throw new RuntimeException("Could not manipulate file: " + Cacount.FILENAME);
             }
         }
         return instance;
     }
 
-    protected AccountFile(ALineManager lineReaderManager, ACalendar calendar) {
+    protected AccountFile(ALineManager manager, ACalendar calendar) throws IOException, ParserException {
         this.calendar = calendar;
-        try {
-            lineReader = lineReaderManager.getLineReaderFile();
-            parseFile(lineReader);
-        } catch (IOException | ParserException e) {
-            e.printStackTrace();
-        }
+        lineReader = manager.getLineReaderFile();
+        parseFile(lineReader);
+        lineWriterFile = manager.getLineWriterFile();
+
     }
 
     private void parseFile(LineReader lineReader) throws IOException, ParserException {
@@ -103,10 +109,23 @@ public class AccountFile {
     }
 
     private BigDecimal getFirstInsertionDay() {
-        if (entries.size() == 0){
+        if (entries.size() == 0) {
             return BigDecimal.ZERO;
         }
         return BigDecimal.valueOf(Integer.parseInt(entries.get(0).date.split("/")[0]));
+    }
+
+    public void insert(String category, String label, double price) {
+        String time = calendar.nowTime();
+        String date = calendar.nowDate();
+        String line = new CSVLineCreator.LineCreator().date(date).time(time).category(category).label(label).price(String.valueOf(price)).toString();
+        try {
+            lineWriterFile.writeLine(line);
+            log.d("Inserted: " + line);
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.w("Could not insert: " + line);
+        }
     }
 
     private class ParserException extends Exception {

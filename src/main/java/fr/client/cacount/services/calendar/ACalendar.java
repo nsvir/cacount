@@ -5,4 +5,6 @@ package fr.client.cacount.services.calendar;
  */
 public abstract class ACalendar {
     public abstract int today();
+    public abstract String nowDate();
+    public abstract String nowTime();
 }

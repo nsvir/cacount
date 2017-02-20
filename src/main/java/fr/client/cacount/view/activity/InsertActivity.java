@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
+import fr.client.cacount.services.account.AccountFile;
 import fr.client.cacount.view.activity.fragment.LabelFragment;
 import fr.client.cacount.view.activity.fragment.PriceFragment;
 import fr.client.cacount.R;
@@ -57,7 +58,7 @@ public class InsertActivity extends FragmentActivity {
 
     public void setPrice(double price) {
         this.price = price;
-        Toast.makeText(this, category + ": " + label + " = " + price + "€", Toast.LENGTH_LONG).show();
+        AccountFile.getInstance().insert(category, label, price);
         finish();
     }
 }

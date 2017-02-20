@@ -22,6 +22,16 @@ public class AccountFileTest {
     public static final String AUTRE = "Autre";
 
     @Test
+    public void insert() throws Exception {
+        String[] strings = {
+                MockCalendar.DEFAULT_DATE + "," + MockCalendar.DEFAULT_TIME + ","
+                + "CATEGORY,LABEL,3.23"
+        };
+        AccountFile accountFile = new AccountFile(new MockLineManager().writer(strings), new MockCalendar());
+        accountFile.insert("CATEGORY", "LABEL", 3.23);
+    }
+
+    @Test
     public void getCategoriesTotal() throws Exception {
         CSVLineCreator.LineCreator lineCreator = new CSVLineCreator.LineCreator();
         ArrayList<String> strings = new ArrayList<>();
