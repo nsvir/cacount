@@ -18,6 +18,7 @@ public class BufferedLineWriter extends LineWriter {
     public void writeLine(String line) throws IOException {
         bufferedWriter.write(line);
         bufferedWriter.newLine();
+        bufferedWriter.flush();
     }
 
     @Override
