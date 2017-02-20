@@ -20,7 +20,7 @@ public class CSVLineCreator {
         return new LineCreator().price(price).toString();
     }
 
-    public static class LineCreator extends ArrayList<String> {
+    public static class LineCreator {
 
         ArrayList<String> defaultLine = new ArrayList<>(Arrays.asList(new String[] {
             "01/01/2017",

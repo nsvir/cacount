@@ -84,7 +84,7 @@ public class AccountFile {
     }
 
     public BigDecimal getEarnedMoney() {
-        return Cacount.RATIO.multiply(day);
+        return Cacount.RATIO.multiply(getDay());
     }
 
     /**
