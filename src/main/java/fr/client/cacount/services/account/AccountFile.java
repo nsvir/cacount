@@ -37,7 +37,7 @@ public class AccountFile {
                 instance = new AccountFile(new LineManager(Cacount.FILENAME), new fr.client.cacount.services.calendar.Calendar());
                 instance.log = new AndroidLog();
             } catch (IOException | ParserException e) {
-                throw new RuntimeException("Could not manipulate file: " + Cacount.FILENAME);
+                throw new RuntimeException("Could not manipulate file: " + Cacount.FILENAME, e);
             }
         }
         return instance;
