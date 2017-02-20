@@ -23,10 +23,11 @@ public class UpdateActivity extends Activity {
     }
 
     public static void updateNotification(Context context) {
+        AccountFile.getInstance().reload();
         BigDecimal total = AccountFile.getInstance().getTotal();
         BigDecimal earnedMoney = AccountFile.getInstance().getEarnedMoney();
-        DefaultNotificationBuilder builder = new DefaultNotificationBuilder(context, String.format(Locale.FRANCE, "%.2f€", (earnedMoney.subtract(total)), Cacount.RATIO),
-                "Next date: +" + Cacount.RATIO + "€");
+        DefaultNotificationBuilder builder = new DefaultNotificationBuilder(context, String.format(Locale.FRANCE, "%.2f€ (%.2f€)", (earnedMoney.subtract(total)),Cacount.RATIO),
+                String.format(Locale.FRANCE, "Total: %.2f€", total));
         builder.buildAndNotify();
     }
 }

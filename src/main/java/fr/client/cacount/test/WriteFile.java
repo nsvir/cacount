@@ -24,10 +24,10 @@ public class WriteFile extends Activity {
         try {
             LineManager lineManager = new LineManager("testFile.csv");
             lineManager.clearFile();
-            LineWriter lineWriterFile = lineManager.getLineWriterFile();
+            LineWriter lineWriterFile = lineManager.createLineWriterFile();
             lineWriterFile.writeLine(HEY_YOU);
             lineWriterFile.close();
-            LineReader lineReaderFile = lineManager.getLineReaderFile();
+            LineReader lineReaderFile = lineManager.createLineReaderFile();
             String line = lineReaderFile.readLine();
             if (!HEY_YOU.equals(line)) {
                 String message = "Expected: " + HEY_YOU + " Actual: " + line;

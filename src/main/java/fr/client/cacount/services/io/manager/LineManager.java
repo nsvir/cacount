@@ -22,21 +22,23 @@ public class LineManager implements ALineManager {
         file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
         //noinspection ResultOfMethodCallIgnored
         file.createNewFile();
-        init();
-    }
-
-    private void init() throws IOException {
-        bufferedLineReader = new BufferedLineReader(new BufferedReader(new FileReader(file)));
-        bufferedLineWriter = new BufferedLineWriter(new BufferedWriter(new FileWriter(file)));
     }
 
     @Override
-    public LineReader getLineReaderFile() throws FileNotFoundException {
+    public LineReader createLineReaderFile() throws FileNotFoundException {
+        if (bufferedLineReader != null) {
+            bufferedLineReader.close();
+        }
+        bufferedLineReader = new BufferedLineReader(new BufferedReader(new FileReader(file)));
         return bufferedLineReader;
     }
 
     @Override
-    public LineWriter getLineWriterFile() throws FileNotFoundException {
+    public LineWriter createLineWriterFile() throws IOException {
+        if (bufferedLineWriter != null) {
+            bufferedLineWriter.close();
+        }
+        bufferedLineWriter = new BufferedLineWriter(new BufferedWriter(new FileWriter(file)));
         return bufferedLineWriter;
     }
 
@@ -44,11 +46,6 @@ public class LineManager implements ALineManager {
         this.delete();
         try {
             file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            init();
         } catch (IOException e) {
             e.printStackTrace();
         }

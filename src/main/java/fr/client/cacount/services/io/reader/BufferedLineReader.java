@@ -20,4 +20,13 @@ public class BufferedLineReader extends LineReader {
         return bufferedReader.readLine();
     }
 
+    @Override
+    public void close() {
+        try {
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

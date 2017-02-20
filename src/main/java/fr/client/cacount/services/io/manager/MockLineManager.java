@@ -31,12 +31,12 @@ public class MockLineManager implements ALineManager {
     }
 
     @Override
-    public LineReader getLineReaderFile() throws FileNotFoundException {
+    public LineReader createLineReaderFile() throws FileNotFoundException {
         return mockLineReader;
     }
 
     @Override
-    public LineWriter getLineWriterFile() throws FileNotFoundException {
+    public LineWriter createLineWriterFile() throws FileNotFoundException {
         return mockLineWriter;
     }
 }

@@ -22,12 +22,13 @@ import java.util.*;
 public class AccountFile {
 
     private static AccountFile instance;
+    private final ALineManager manager;
     private LineReader lineReader;
     private BigDecimal total = null;
     private BigDecimal day;
     protected ACalendar calendar;
     private List<AccountEntry> entries;
-    private final LineWriter lineWriterFile;
+    private LineWriter lineWriterFile;
     private Log log = new MockLog();
 
     public static AccountFile getInstance() {
@@ -44,29 +45,43 @@ public class AccountFile {
 
     protected AccountFile(ALineManager manager, ACalendar calendar) throws IOException, ParserException {
         this.calendar = calendar;
-        lineReader = manager.getLineReaderFile();
-        parseFile(lineReader);
-        lineWriterFile = manager.getLineWriterFile();
+        this.manager = manager;
+        load();
 
+    }
+
+    private void load() throws IOException, ParserException {
+        lineReader = manager.createLineReaderFile();
+        parseFile(lineReader);
+        lineWriterFile = manager.createLineWriterFile();
     }
 
     private void parseFile(LineReader lineReader) throws IOException, ParserException {
         String line;
         entries = new ArrayList<>();
-        AccountEntry entry;
         while ((line = lineReader.readLine()) != null) {
             String[] split = line.split(",");
             if (split.length != 5) {
                 throw new ParserException();
             }
-            entry = new AccountEntry();
-            entry.date = split[0];
-            entry.time = split[1];
-            entry.category = split[2];
-            entry.label = split[3];
-            entry.value = Double.parseDouble(split[4]);
-            entries.add(entry);
+            String date = split[0];
+            String time = split[1];
+            String label = split[3];
+            String category = split[2];
+            double price = Double.parseDouble(split[4]);
+            addEntry(date, time, label, category, price);
         }
+    }
+
+    private void addEntry(String date, String time, String label, String category, double price) {
+        AccountEntry entry;
+        entry = new AccountEntry();
+        entry.date = date;
+        entry.time = time;
+        entry.category = category;
+        entry.label = label;
+        entry.value = price;
+        entries.add(entry);
     }
 
     public HashMap<String, BigDecimal> getCategoriesTotal() {
@@ -84,11 +99,9 @@ public class AccountFile {
     }
 
     public BigDecimal getTotal() {
-        if (total == null) {
-            total = BigDecimal.valueOf(0d);
-            for (AccountEntry each : this.entries) {
-                total = total.add(BigDecimal.valueOf(each.value));
-            }
+        total = BigDecimal.valueOf(0d);
+        for (AccountEntry each : this.entries) {
+            total = total.add(BigDecimal.valueOf(each.value));
         }
         return total;
     }
@@ -101,10 +114,8 @@ public class AccountFile {
      * @return Elapsed date between the first insertion and today
      */
     public BigDecimal getDay() {
-        if (day == null) {
-            int today = calendar.today();
-            day = BigDecimal.valueOf(today).subtract(getFirstInsertionDay());
-        }
+        int today = calendar.today();
+        day = BigDecimal.valueOf(today).subtract(getFirstInsertionDay());
         return day;
     }
 
@@ -118,6 +129,7 @@ public class AccountFile {
     public void insert(String category, String label, double price) {
         String time = calendar.nowTime();
         String date = calendar.nowDate();
+        addEntry(date, time, category, label, price);
         String line = new CSVLineCreator.LineCreator().date(date).time(time).category(category).label(label).price(String.valueOf(price)).toString();
         try {
             lineWriterFile.writeLine(line);
@@ -126,6 +138,10 @@ public class AccountFile {
             e.printStackTrace();
             log.w("Could not insert: " + line);
         }
+    }
+
+    public void reload() {
+
     }
 
     private class ParserException extends Exception {

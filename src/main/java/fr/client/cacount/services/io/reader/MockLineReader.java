@@ -25,4 +25,9 @@ public class MockLineReader extends LineReader {
         }
         return lines[i++];
     }
+
+    @Override
+    public void close() {
+
+    }
 }
