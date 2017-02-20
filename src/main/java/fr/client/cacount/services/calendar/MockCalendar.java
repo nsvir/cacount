@@ -12,6 +12,10 @@ public class MockCalendar extends ACalendar {
         this.date = date;
     }
 
+    public MockCalendar() {
+        date = 0;
+    }
+
     @Override
     public int today() {
         return date;

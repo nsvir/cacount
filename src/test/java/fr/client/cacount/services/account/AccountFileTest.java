@@ -2,9 +2,14 @@ package fr.client.cacount.services.account;
 
 import fr.client.cacount.Cacount;
 import fr.client.cacount.services.calendar.MockCalendar;
+import fr.client.cacount.services.io.LineReader;
 import fr.client.cacount.services.io.MockLineReaderManager;
 import fr.client.cacount.services.utils.CSVLineCreator;
 import org.junit.Test;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Map;
 
 import static junit.framework.TestCase.*;
 
@@ -13,23 +18,71 @@ import static junit.framework.TestCase.*;
  */
 public class AccountFileTest {
 
+    public static final String ALIMENTAIRE = "Alimentaire";
+    public static final String SANTÉ = "Santé";
+    public static final String AUTRE = "Autre";
+
     @Test
     public void getCategoriesTotal() throws Exception {
+        CSVLineCreator.LineCreator lineCreator = new CSVLineCreator.LineCreator();
+        ArrayList<String> strings = new ArrayList<>();
+        lineCreator.category(ALIMENTAIRE);
+        strings.add(lineCreator.price("20").toString());
+        strings.add(lineCreator.price("20.50").toString());
+        strings.add(lineCreator.price("-40.34").toString());
+        strings.add(lineCreator.price("12.45").toString());
+        strings.add(lineCreator.price("23").toString());
+        double expectedAlimentation = 35.61;
+        lineCreator.category(SANTÉ);
+        strings.add(lineCreator.price("20").toString());
+        strings.add(lineCreator.price("-40.34").toString());
+        strings.add(lineCreator.price("23").toString());
+        double expectedSanté = 2.66;
+        lineCreator.category(AUTRE);
+        strings.add(lineCreator.price("20.18").toString());
+        strings.add(lineCreator.price("-20.34").toString());
+        strings.add(lineCreator.price("47.53").toString());
+        double expectedAutre = 47.37;
+        AccountFile accountFile = new AccountFile(new MockLineReaderManager(strings.toArray(new String[strings.size()])), new MockCalendar());
+        for (Map.Entry<String, BigDecimal> each : accountFile.getCategoriesTotal().entrySet()) {
+            switch (each.getKey()) {
+                case ALIMENTAIRE:
+                    assertEquals(BigDecimal.valueOf(expectedAlimentation), each.getValue());
+                    break;
+                case SANTÉ:
+                    assertEquals(BigDecimal.valueOf(expectedSanté), each.getValue());
+                    break;
+                case AUTRE:
+                    assertEquals(BigDecimal.valueOf(expectedAutre), each.getValue());
+                    break;
+                default:
+                    fail(each.getKey() + " is an invalid category");
+            }
+        }
 
     }
 
     @Test
     public void getTotal() throws Exception {
-
+        String[] entries = new String[]{
+                CSVLineCreator.price("10"),
+                CSVLineCreator.price("10.53"),
+                CSVLineCreator.price("12"),
+                CSVLineCreator.price("-10.60"),
+                CSVLineCreator.price("30.254"),
+                CSVLineCreator.price("500.9"),
+        };
+        AccountFile accountFile = new AccountFile(new MockLineReaderManager(entries), new MockCalendar());
+        assertEquals(553.084, accountFile.getTotal());
     }
 
     @Test
     public void getEarnedMoneySimple() throws Exception {
-        double ratio = 5;
+        BigDecimal ratio = BigDecimal.valueOf(5);
         int days = 10;
         Cacount.RATIO = ratio;
         AccountFile accountFile = new AccountFile(new MockLineReaderManager(), new MockCalendar(days));
-        assertEquals(ratio * days, accountFile.getEarnedMoney());
+        assertEquals(ratio.multiply(BigDecimal.valueOf(days)), accountFile.getEarnedMoney());
     }
 
     @Test
@@ -37,7 +90,7 @@ public class AccountFileTest {
         double ratio = 5;
         int days = 10;
         int firstDay = 5;
-        Cacount.RATIO = ratio;
+        Cacount.RATIO = BigDecimal.valueOf(ratio);
 
         String[] lines = {CSVLineCreator.date(CSVLineCreator.day(firstDay))};
 

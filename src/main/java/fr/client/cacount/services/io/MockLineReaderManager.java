@@ -1,5 +1,6 @@
 package fr.client.cacount.services.io;
 
+import fr.client.cacount.services.calendar.MockCalendar;
 import fr.client.cacount.services.io.ALineReaderManager;
 import fr.client.cacount.services.io.EmptyLineReader;
 import fr.client.cacount.services.io.LineReader;
@@ -25,6 +26,8 @@ public class MockLineReaderManager implements ALineReaderManager {
     public MockLineReaderManager(String[] lines) {
         this.bufferedReader = new MockLineReader(lines);
     }
+
+
 
     @Override
     public LineReader getLineReaderFile() throws FileNotFoundException {

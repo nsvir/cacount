@@ -8,6 +8,7 @@ import fr.client.cacount.services.io.LineReaderManager;
 import fr.client.cacount.services.calendar.*;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -17,8 +18,8 @@ public class AccountFile {
 
     private static AccountFile instance;
     private LineReader lineReader;
-    private Double total = null;
-    private Integer day;
+    private BigDecimal total = null;
+    private BigDecimal day;
     protected ACalendar calendar;
     private List<AccountEntry> entries;
 
@@ -58,49 +59,50 @@ public class AccountFile {
         }
     }
 
-    public Map<String, Double> getCategoriesTotal() {
-        HashMap<String, Double> result = new HashMap<>();
+    public HashMap<String, BigDecimal> getCategoriesTotal() {
+        HashMap<String, BigDecimal> result = new HashMap<>();
         for (AccountEntry each : entries) {
             if (result.containsKey(each.category)) {
-                Double oldValue = result.get(each.category);
-                result.put(each.category, oldValue + each.value);
+                BigDecimal oldValue = result.get(each.category);
+                BigDecimal newValue = oldValue.add(BigDecimal.valueOf(each.value));
+                result.put(each.category, newValue);
             } else {
-                result.put(each.category, each.value);
+                result.put(each.category, BigDecimal.valueOf(each.value));
             }
         }
         return result;
     }
 
-    public double getTotal() {
+    public BigDecimal getTotal() {
         if (total == null) {
-            total = 0d;
+            total = BigDecimal.valueOf(0d);
             for (AccountEntry each : this.entries) {
-                total += each.value;
+                total = total.add(BigDecimal.valueOf(each.value));
             }
         }
         return total;
     }
 
-    public double getEarnedMoney() {
-        return Cacount.RATIO * getDay();
+    public BigDecimal getEarnedMoney() {
+        return Cacount.RATIO.multiply(day);
     }
 
     /**
      * @return Elapsed date between the first insertion and today
      */
-    public int getDay() {
+    public BigDecimal getDay() {
         if (day == null) {
             int today = calendar.today();
-            day = today - getFirstInsertionDay();
+            day = BigDecimal.valueOf(today).subtract(getFirstInsertionDay());
         }
         return day;
     }
 
-    private int getFirstInsertionDay() {
+    private BigDecimal getFirstInsertionDay() {
         if (entries.size() == 0){
-            return 0;
+            return BigDecimal.ZERO;
         }
-        return Integer.parseInt(entries.get(0).date.split("/")[0]);
+        return BigDecimal.valueOf(Integer.parseInt(entries.get(0).date.split("/")[0]));
     }
 
     private class ParserException extends Exception {
