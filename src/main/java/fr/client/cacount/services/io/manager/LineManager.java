@@ -38,7 +38,7 @@ public class LineManager implements ALineManager {
         if (bufferedLineWriter != null) {
             bufferedLineWriter.close();
         }
-        bufferedLineWriter = new BufferedLineWriter(new BufferedWriter(new FileWriter(file)));
+        bufferedLineWriter = new BufferedLineWriter(new BufferedWriter(new FileWriter(file, true)));
         return bufferedLineWriter;
     }
 
