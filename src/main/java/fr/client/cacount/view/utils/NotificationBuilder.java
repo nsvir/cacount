@@ -1,4 +1,4 @@
-package fr.client.cacount;
+package fr.client.cacount.view.utils;
 
 import android.app.Notification;
 import android.app.NotificationManager;

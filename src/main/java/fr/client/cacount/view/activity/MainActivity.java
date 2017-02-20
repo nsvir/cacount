@@ -1,7 +1,9 @@
-package fr.client.cacount;
+package fr.client.cacount.view.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import fr.client.cacount.R;
+import fr.client.cacount.view.utils.UpdateAlarm;
 
 public class MainActivity extends Activity
 {

@@ -1,6 +1,7 @@
 package fr.client.cacount;
 
 import android.test.ActivityInstrumentationTestCase2;
+import fr.client.cacount.view.activity.MainActivity;
 
 /**
  * This is a simple framework for a test of an Application.  See

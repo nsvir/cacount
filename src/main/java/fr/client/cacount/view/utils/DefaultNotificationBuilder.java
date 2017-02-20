@@ -1,7 +1,9 @@
-package fr.client.cacount;
+package fr.client.cacount.view.utils;
 
 import android.content.Context;
 import android.support.v4.app.NotificationCompat;
+import fr.client.cacount.view.activity.InsertActivity;
+import fr.client.cacount.R;
 
 /**
  * Created by svirch_n on 11/02/17.

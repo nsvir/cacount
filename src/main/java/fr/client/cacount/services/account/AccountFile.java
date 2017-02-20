@@ -1,5 +1,11 @@
-package fr.client.cacount;
+package fr.client.cacount.services.account;
 
+
+import fr.client.cacount.services.io.ALineReaderManager;
+import fr.client.cacount.Cacount;
+import fr.client.cacount.services.io.LineReader;
+import fr.client.cacount.services.io.LineReaderManager;
+import fr.client.cacount.services.calendar.*;
 
 import java.io.*;
 import java.util.*;
@@ -9,29 +15,39 @@ import java.util.*;
  */
 public class AccountFile {
 
-    public static AccountFile Instance = new AccountFile(new LineReaderManager(), new fr.client.cacount.services.Calendar());
+    private static AccountFile instance;
     private LineReader lineReader;
     private Double total = null;
     private Integer day;
     protected ACalendar calendar;
     private List<AccountEntry> entries;
 
+    public static AccountFile getInstance() {
+        if (instance == null) {
+            instance = new AccountFile(new LineReaderManager(), new fr.client.cacount.services.calendar.Calendar());
+        }
+        return instance;
+    }
+
     protected AccountFile(ALineReaderManager lineReaderManager, ACalendar calendar) {
         this.calendar = calendar;
         try {
             lineReader = lineReaderManager.getLineReaderFile();
             parseFile(lineReader);
-        } catch (IOException e) {
+        } catch (IOException | ParserException e) {
             e.printStackTrace();
         }
     }
 
-    private void parseFile(LineReader lineReader) throws IOException {
+    private void parseFile(LineReader lineReader) throws IOException, ParserException {
         String line;
         entries = new ArrayList<>();
         AccountEntry entry;
         while ((line = lineReader.readLine()) != null) {
             String[] split = line.split(",");
+            if (split.length != 5) {
+                throw new ParserException();
+            }
             entry = new AccountEntry();
             entry.date = split[0];
             entry.time = split[1];
@@ -69,11 +85,24 @@ public class AccountFile {
         return Cacount.RATIO * getDay();
     }
 
+    /**
+     * @return Elapsed date between the first insertion and today
+     */
     public int getDay() {
         if (day == null) {
             int today = calendar.today();
-            day = today - Integer.parseInt(entries.get(0).date.split("/")[1]);
+            day = today - getFirstInsertionDay();
         }
         return day;
+    }
+
+    private int getFirstInsertionDay() {
+        if (entries.size() == 0){
+            return 0;
+        }
+        return Integer.parseInt(entries.get(0).date.split("/")[0]);
+    }
+
+    private class ParserException extends Exception {
     }
 }

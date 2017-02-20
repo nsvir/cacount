@@ -1,10 +1,14 @@
-package fr.client.cacount;
+package fr.client.cacount.view.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
+import fr.client.cacount.view.activity.fragment.LabelFragment;
+import fr.client.cacount.view.activity.fragment.PriceFragment;
+import fr.client.cacount.R;
+import fr.client.cacount.view.activity.fragment.CategoryFragment;
 
 /**
  * Created by svirch_n on 11/02/17.

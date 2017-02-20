@@ -1,6 +1,9 @@
-package fr.client.cacount;
+package fr.client.cacount.services.io;
 
 import android.os.Environment;
+import fr.client.cacount.services.io.ALineReaderManager;
+import fr.client.cacount.services.io.BufferedLineReader;
+import fr.client.cacount.services.io.LineReader;
 
 import java.io.BufferedReader;
 import java.io.File;

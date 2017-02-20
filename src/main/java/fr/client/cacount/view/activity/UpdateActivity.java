@@ -1,8 +1,11 @@
-package fr.client.cacount;
+package fr.client.cacount.view.activity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import fr.client.cacount.Cacount;
+import fr.client.cacount.services.account.AccountFile;
+import fr.client.cacount.view.utils.DefaultNotificationBuilder;
 
 import java.util.Locale;
 
@@ -19,10 +22,10 @@ public class UpdateActivity extends Activity {
     }
 
     public static void updateNotification(Context context) {
-        double total = AccountFile.Instance.getTotal();
-        double earnedMoney = AccountFile.Instance.getEarnedMoney();
+        double total = AccountFile.getInstance().getTotal();
+        double earnedMoney = AccountFile.getInstance().getEarnedMoney();
         DefaultNotificationBuilder builder = new DefaultNotificationBuilder(context, String.format(Locale.FRANCE, "%.2f€", (earnedMoney - total), Cacount.RATIO),
-                "Next day: +" + Cacount.RATIO + "€");
+                "Next date: +" + Cacount.RATIO + "€");
         builder.buildAndNotify();
     }
 }

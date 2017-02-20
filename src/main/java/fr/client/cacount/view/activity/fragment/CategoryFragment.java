@@ -1,9 +1,8 @@
-package fr.client.cacount;
+package fr.client.cacount.view.activity.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import fr.client.cacount.view.activity.InsertActivity;
+import fr.client.cacount.R;
 
 import static fr.client.cacount.Cacount.CATEGORY_LIST;
 

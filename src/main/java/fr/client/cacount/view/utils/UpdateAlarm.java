@@ -1,10 +1,12 @@
-package fr.client.cacount;
+package fr.client.cacount.view.utils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import fr.client.cacount.view.activity.MainActivity;
+import fr.client.cacount.view.activity.UpdateActivity;
 
 import java.util.Calendar;
 

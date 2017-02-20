@@ -1,4 +1,9 @@
-package fr.client.cacount;
+package fr.client.cacount.services.io;
+
+import fr.client.cacount.services.io.ALineReaderManager;
+import fr.client.cacount.services.io.EmptyLineReader;
+import fr.client.cacount.services.io.LineReader;
+import fr.client.cacount.services.io.MockLineReader;
 
 import java.io.FileNotFoundException;
 

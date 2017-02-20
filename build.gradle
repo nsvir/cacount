@@ -41,3 +41,7 @@ android {
         compile "com.android.support:support-v4:25.0.+"
     }
 }
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
