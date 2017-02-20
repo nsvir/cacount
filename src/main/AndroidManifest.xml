@@ -8,9 +8,6 @@
         android:label="@string/app_name"
         android:icon="@drawable/ic_launcher"
         android:noHistory="true">
-        <activity android:name=".test.WriteFile">
-            <!-- CAUTON! Removed testFile.csv -->
-        </activity>
         <activity
             android:name="fr.client.cacount.view.activity.MainActivity"
             android:label="@string/app_name">

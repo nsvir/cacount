@@ -114,16 +114,7 @@ public class AccountFile {
      * @return Elapsed date between the first insertion and today
      */
     public BigDecimal getDay() {
-        int today = calendar.today();
-        day = BigDecimal.valueOf(today).subtract(getFirstInsertionDay());
-        return day;
-    }
-
-    private BigDecimal getFirstInsertionDay() {
-        if (entries.size() == 0) {
-            return BigDecimal.ZERO;
-        }
-        return BigDecimal.valueOf(Integer.parseInt(entries.get(0).date.split("/")[0]));
+        return BigDecimal.valueOf(calendar.today());
     }
 
     public void insert(String category, String label, double price) {

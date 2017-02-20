@@ -104,7 +104,7 @@ public class AccountFileTest {
         String[] lines = {CSVLineCreator.date(CSVLineCreator.day(firstDay))};
 
         AccountFile accountFile = new AccountFile(new MockLineManager().reader(lines), new MockCalendar(days));
-        assertEquals(ratio * (days - firstDay), accountFile.getEarnedMoney().doubleValue());
+        assertEquals(ratio * (days), accountFile.getEarnedMoney().doubleValue());
     }
 
     @Test
@@ -112,7 +112,7 @@ public class AccountFileTest {
         int date = 10;
         int insertionDate = 1;
         AccountFile accountFile = new AccountFile(new MockLineManager().reader(new String[]{"01/10/2016, 08:34:50, CATEGORY, LABEL, 13.2"}), new MockCalendar(date));
-        assertEquals(date - insertionDate, accountFile.getDay().intValue());
+        assertEquals(date, accountFile.getDay().intValue());
     }
 
 }
