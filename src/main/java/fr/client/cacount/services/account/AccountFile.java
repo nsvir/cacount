@@ -1,6 +1,7 @@
 package fr.client.cacount.services.account;
 
 
+import android.preference.PreferenceManager;
 import fr.client.cacount.utils.log.AndroidLog;
 import fr.client.cacount.utils.log.Log;
 import fr.client.cacount.services.io.manager.ALineManager;
@@ -11,6 +12,7 @@ import fr.client.cacount.services.calendar.*;
 import fr.client.cacount.services.io.writer.LineWriter;
 import fr.client.cacount.services.utils.CSVLineCreator;
 import fr.client.cacount.utils.log.MockLog;
+import fr.client.cacount.view.activity.MainActivity;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -107,7 +109,7 @@ public class AccountFile {
     }
 
     public BigDecimal getEarnedMoney() {
-        return Cacount.RATIO.multiply(getDay());
+        return Cacount.getRatio().multiply(getDay());
     }
 
     /**

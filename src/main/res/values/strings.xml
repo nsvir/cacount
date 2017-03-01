@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cacount</string>
+    <string name="pref_ratio">ratio</string>
+    <string name="preference_file">fr.client.cacount.PREFERENCE_FILE_KEY</string>
 </resources>

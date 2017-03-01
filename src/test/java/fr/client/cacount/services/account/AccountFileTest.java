@@ -3,6 +3,7 @@ package fr.client.cacount.services.account;
 import fr.client.cacount.Cacount;
 import fr.client.cacount.services.calendar.MockCalendar;
 import fr.client.cacount.services.io.manager.MockLineManager;
+import fr.client.cacount.services.preferencemanager.MockPreferenceManager;
 import fr.client.cacount.services.utils.CSVLineCreator;
 import org.junit.Test;
 
@@ -89,7 +90,7 @@ public class AccountFileTest {
     public void getEarnedMoneySimple() throws Exception {
         double ratio = 5;
         int days = 10;
-        Cacount.RATIO = BigDecimal.valueOf(ratio);
+        Cacount.setPreferenceManager(new MockPreferenceManager().ratio(ratio));
         AccountFile accountFile = new AccountFile(new MockLineManager(), new MockCalendar(days));
         assertEquals(ratio * days, accountFile.getEarnedMoney().doubleValue());
     }
@@ -99,8 +100,7 @@ public class AccountFileTest {
         double ratio = 5;
         int days = 10;
         int firstDay = 5;
-        Cacount.RATIO = BigDecimal.valueOf(ratio);
-
+        Cacount.setPreferenceManager(new MockPreferenceManager().ratio(ratio));
         String[] lines = {CSVLineCreator.date(CSVLineCreator.day(firstDay))};
 
         AccountFile accountFile = new AccountFile(new MockLineManager().reader(lines), new MockCalendar(days));

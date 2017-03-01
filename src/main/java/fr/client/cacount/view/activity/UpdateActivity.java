@@ -26,7 +26,7 @@ public class UpdateActivity extends Activity {
         AccountFile.getInstance().reload();
         BigDecimal total = AccountFile.getInstance().getTotal();
         BigDecimal earnedMoney = AccountFile.getInstance().getEarnedMoney();
-        DefaultNotificationBuilder builder = new DefaultNotificationBuilder(context, String.format(Locale.FRANCE, "%.2f€ (%.2f€)", (earnedMoney.subtract(total)),Cacount.RATIO),
+        DefaultNotificationBuilder builder = new DefaultNotificationBuilder(context, String.format(Locale.FRANCE, "%.2f€ (%.2f€)", (earnedMoney.subtract(total)),Cacount.getRatio()),
                 String.format(Locale.FRANCE, "Total: %.2f€", total));
         builder.buildAndNotify();
     }
