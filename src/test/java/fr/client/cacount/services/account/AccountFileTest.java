@@ -108,9 +108,17 @@ public class AccountFileTest {
     }
 
     @Test
+    public void getEarnedMoneyFromOneDay() throws Exception {
+        double expected = 10;
+        Cacount.setPreferenceManager(new MockPreferenceManager().ratio(expected));
+        AccountFile accountFile = new AccountFile(new MockLineManager(), new MockCalendar(1));
+        assertEquals(expected, accountFile.getEarnedMoney().doubleValue());
+
+    }
+
+    @Test
     public void getDay() throws Exception {
         int date = 10;
-        int insertionDate = 1;
         AccountFile accountFile = new AccountFile(new MockLineManager().reader(new String[]{"01/10/2016, 08:34:50, CATEGORY, LABEL, 13.2"}), new MockCalendar(date));
         assertEquals(date, accountFile.getDay().intValue());
     }

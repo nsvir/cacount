@@ -20,6 +20,6 @@ public class Cacount {
     }
 
     public static BigDecimal getRatio() {
-        return new BigDecimal(preferenceManager.getRatio());
+        return preferenceManager.getRatio();
     }
 }

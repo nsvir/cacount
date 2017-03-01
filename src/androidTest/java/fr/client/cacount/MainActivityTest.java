@@ -1,7 +1,13 @@
 package fr.client.cacount;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
+import fr.client.cacount.services.account.AccountFile;
+import fr.client.cacount.services.preferencemanager.AndroidPreferenceManager;
 import fr.client.cacount.view.activity.MainActivity;
+import junit.framework.Assert;
+import org.junit.Test;
 
 /**
  * This is a simple framework for a test of an Application.  See
@@ -19,4 +25,8 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         super("fr.client.cacount", MainActivity.class);
     }
 
+    public void testGetRatio() throws Exception {
+        Cacount.setPreferenceManager(new AndroidPreferenceManager(getActivity().getApplicationContext()));
+        Assert.assertEquals(0.0, Cacount.getRatio().doubleValue());
+    }
 }
