@@ -27,4 +27,7 @@ public class DefaultNotificationBuilder extends NotificationBuilder {
     }
 
 
+    public DefaultNotificationBuilder(Context context, NotificationContent content) {
+        this(context, content.title, content.content);
+    }
 }

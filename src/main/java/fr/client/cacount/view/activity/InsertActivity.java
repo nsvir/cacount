@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
-import fr.client.cacount.services.account.AccountFile;
+import fr.client.cacount.Cacount;
+import fr.client.cacount.services.account.AccountInterface;
 import fr.client.cacount.view.activity.fragment.LabelFragment;
 import fr.client.cacount.view.activity.fragment.PriceFragment;
 import fr.client.cacount.R;
@@ -58,7 +58,11 @@ public class InsertActivity extends FragmentActivity {
 
     public void setPrice(double price) {
         this.price = price;
-        AccountFile.getInstance().insert(category, label, price);
+        try {
+            Cacount.PRINCIPAL.createInstance().insert(category, label, price);
+        } catch (AccountInterface.CouldNotInitiateAccountException e) {
+            e.printStackTrace();
+        }
         finish();
     }
 }

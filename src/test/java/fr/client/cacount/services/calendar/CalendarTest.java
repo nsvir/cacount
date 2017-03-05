@@ -2,8 +2,6 @@ package fr.client.cacount.services.calendar;
 
 import org.junit.Test;
 
-import java.util.Date;
-
 import static org.junit.Assert.*;
 
 /**
@@ -20,13 +18,13 @@ public class CalendarTest {
 
     @Test
     public void nowDate() throws Exception {
-        Calendar calendar = getCalendar();
+        AndroidCalendar calendar = getCalendar();
         String expectedDate = DATE + "/" + MONTH + "/" + YEAR;
         assertEquals(expectedDate, calendar.nowDate());
     }
 
-    public static Calendar getCalendar() {
-        Calendar calendar = new Calendar();
+    public static AndroidCalendar getCalendar() {
+        AndroidCalendar calendar = new AndroidCalendar();
         java.util.Calendar instance = java.util.Calendar.getInstance();
         instance.set(YEAR, MONTH - 1, DATE, HOUR_OF_DAY, MINUTE, SECOND);
         calendar.setInstance(instance);
@@ -35,7 +33,7 @@ public class CalendarTest {
 
     @Test
     public void nowTime() throws Exception {
-        Calendar calendar = getCalendar();
+        AndroidCalendar calendar = getCalendar();
         String expectedTime = HOUR_OF_DAY + ":" + MINUTE + ":" + SECOND;
         assertEquals(expectedTime, calendar.nowTime());
     }

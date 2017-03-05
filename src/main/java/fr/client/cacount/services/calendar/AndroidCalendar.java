@@ -6,11 +6,11 @@ import java.util.Locale;
 /**
  * Created by svirch_n on 12/02/17.
  */
-public class Calendar extends ACalendar {
+public class AndroidCalendar extends ACalendar {
 
     private java.util.Calendar instance;
 
-    public Calendar() {
+    public AndroidCalendar() {
         this.instance = java.util.Calendar.getInstance();
     }
 

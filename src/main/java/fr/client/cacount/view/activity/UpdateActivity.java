@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import fr.client.cacount.Cacount;
-import fr.client.cacount.services.account.AccountFile;
+import fr.client.cacount.services.account.AccountInterface;
+import fr.client.cacount.services.account.SingleAccount;
 import fr.client.cacount.services.preferencemanager.AndroidPreferenceManager;
 import fr.client.cacount.view.utils.DefaultNotificationBuilder;
-
-import java.math.BigDecimal;
-import java.util.Locale;
+import fr.client.cacount.view.utils.NotificationContent;
 
 /**
  * Created by svirch_n on 18/02/17.
@@ -24,12 +23,13 @@ public class UpdateActivity extends Activity {
     }
 
     public static void updateNotification(Context context) {
-        AccountFile.getInstance().reload();
         Cacount.setPreferenceManager(new AndroidPreferenceManager(context));
-        BigDecimal total = AccountFile.getInstance().getTotal();
-        BigDecimal earnedMoney = AccountFile.getInstance().getEarnedMoney();
-        DefaultNotificationBuilder builder = new DefaultNotificationBuilder(context, String.format(Locale.FRANCE, "%.2f€ (%.2f€)", (earnedMoney.subtract(total)),Cacount.getRatio()),
-                String.format(Locale.FRANCE, "Total: %.2f€", total));
-        builder.buildAndNotify();
+        try {
+            NotificationContent notificationBuilder = Cacount.PRINCIPAL.createInstance().getNotificationContent();
+            DefaultNotificationBuilder defaultNotificationBuilder = new DefaultNotificationBuilder(context, notificationBuilder);
+            defaultNotificationBuilder.buildAndNotify();
+        } catch (AccountInterface.CouldNotInitiateAccountException e) {
+            e.printStackTrace();
+        }
     }
 }
