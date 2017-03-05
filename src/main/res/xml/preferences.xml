@@ -8,7 +8,6 @@
 
         <EditTextPreference
         android:title="Ratio"
-        android:summary="Le ratio journalier du mois courant"
         android:defaultValue="0"
         android:id="@+id/ratio"
         android:key="@string/pref_ratio"
@@ -18,7 +17,6 @@
 
     <EditTextPreference
         android:title="Fichier"
-        android:summary="Le nom du fichier à utiliser"
         android:defaultValue="defaultCacount.csv"
         android:id="@+id/filename"
         android:key="@string/pref_filename"
@@ -27,12 +25,26 @@
 
     <EditTextPreference
         android:title="Depenses courante"
-        android:summary="Les dépenses non contabilisées sur le fichiers"
         android:defaultValue="0.0"
         android:id="@+id/depenses"
         android:key="@string/pref_depenses"
         android:inputType="numberDecimal"
         />
+    </PreferenceCategory>
+        android:summary="Le ratio journalier du mois courant"
+
+    <PreferenceCategory
+        android:title="@string/shared_account"
+        >
+
+        <EditTextPreference
+            android:title="Fichier"
+            android:defaultValue="defaultSharedCacount.csv"
+            android:id="@+id/shared_filename"
+            android:key="@string/pref_shared_filename"
+            android:inputType="text"
+            />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
