@@ -12,6 +12,7 @@ import fr.client.cacount.services.preferencemanager.AndroidPreferenceManager;
 public class Cacount {
 
     public static final String[] CATEGORY_LIST = {"Alimentaire", "Transport", "Logistique", "Soirée", "Autre", "Soin/Santé"};
+    public static final String[] SHARED_CATEGORY_LIST = {"NICOLAS", "MARION"};
     private static SharedAccountPreference SHARED = null;
     private static SingleAccountPreference PRINCIPAL = null;
     public static final String TAG = "Cacount";

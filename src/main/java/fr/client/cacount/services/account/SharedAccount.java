@@ -9,7 +9,7 @@ public class SharedAccount implements AccountInterface {
 
     @Override
     public NotificationContent getNotificationContent() {
-        return new NotificationContent(2).title("Shared Account title").content("oh yea!");
+        return new NotificationContent(2).title("Shared Account title").content("oh yea!").isShared();
     }
 
 }

@@ -8,6 +8,7 @@ public class NotificationContent {
     public final int notificationID;
     public String title;
     public String content;
+    public boolean isShared = false;
 
     public NotificationContent(int notificationID) {
         this.notificationID = notificationID;
@@ -20,6 +21,11 @@ public class NotificationContent {
 
     public NotificationContent content(String content) {
         this.content = content;
+        return this;
+    }
+
+    public NotificationContent isShared() {
+        isShared = true;
         return this;
     }
 }

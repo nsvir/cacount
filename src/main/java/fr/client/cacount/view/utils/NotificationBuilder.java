@@ -5,7 +5,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import fr.client.cacount.view.activity.InsertActivity;
 
 /**
  * Created by svirch_n on 11/02/17.
@@ -20,8 +22,11 @@ public class NotificationBuilder extends NotificationCompat.Builder {
         this.context = context;
     }
 
-    public void addPendingIntent(Class className) {
+    public void addPendingIntent(Class className, Boolean isShared) {
         Intent intent = new Intent(context, className);
+        if (isShared) {
+            intent.putExtra(InsertActivity.IS_SHARED, true);
+        }
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         this.setContentIntent(pendingIntent);
     }

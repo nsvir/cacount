@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import fr.client.cacount.Cacount;
 import fr.client.cacount.view.activity.InsertActivity;
 import fr.client.cacount.R;
 

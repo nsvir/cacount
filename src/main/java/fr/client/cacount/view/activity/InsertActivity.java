@@ -16,6 +16,7 @@ import fr.client.cacount.view.activity.fragment.CategoryFragment;
  */
 public class InsertActivity extends FragmentActivity {
 
+    public static final String IS_SHARED = "isShared";
     private String category;
     private Fragment current;
     private String label;
@@ -25,7 +26,11 @@ public class InsertActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.container);
-        setFragment(new CategoryFragment());
+        CategoryFragment fragment = new CategoryFragment();
+        Bundle extras = getIntent().getExtras();
+        fragment.setArguments(extras);
+        setFragment(fragment);
+
     }
 
     @Override
