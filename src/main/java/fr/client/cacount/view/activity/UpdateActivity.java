@@ -1,6 +1,7 @@
 package fr.client.cacount.view.activity;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
 import fr.client.cacount.Cacount;
@@ -25,10 +26,13 @@ public class UpdateActivity extends Activity {
     public static void updateNotification(Context context) {
         try {
             for (AccountPreference each: Cacount.getAccounts(context)) {
+                NotificationContent notificationBuilder = each.createInstance().getNotificationContent();
                 if (each.displayNotification()) {
-                    NotificationContent notificationBuilder = each.createInstance().getNotificationContent();
                     DefaultNotificationBuilder defaultNotificationBuilder = new DefaultNotificationBuilder(context, notificationBuilder);
                     defaultNotificationBuilder.buildAndNotify(notificationBuilder.notificationID);
+                } else {
+                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+                    notificationManager.cancel(notificationBuilder.notificationID);
                 }
             }
         } catch (AccountInterface.CouldNotInitiateAccountException e) {
