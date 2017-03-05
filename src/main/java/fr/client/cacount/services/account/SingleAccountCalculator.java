@@ -5,7 +5,6 @@ import fr.client.cacount.services.calendar.AndroidCalendar;
 import fr.client.cacount.services.calendar.MockCalendar;
 import fr.client.cacount.services.io.file.SingleEntry;
 import fr.client.cacount.services.io.file.SingleAccountFile;
-import fr.client.cacount.services.io.manager.MockLineManager;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -18,17 +17,17 @@ public class SingleAccountCalculator {
     private final SingleEntries singleAccountFile;
     private ACalendar calendar;
     private BigDecimal total;
-    private AccountPreference accountPreference;
+    private SingleAccountPreference singleAccountPreference;
 
 
-    protected SingleAccountCalculator(SingleEntries singleEntries, AccountPreference accountPreference) {
+    protected SingleAccountCalculator(SingleEntries singleEntries, SingleAccountPreference singleAccountPreference) {
         this.singleAccountFile = singleEntries;
         this.calendar = new AndroidCalendar();
-        this.accountPreference = accountPreference;
+        this.singleAccountPreference = singleAccountPreference;
     }
 
     protected SingleAccountCalculator(SingleEntries singleEntries, MockCalendar calendar, BigDecimal ratio) throws IOException, SingleAccountFile.ParserException {
-        this(singleEntries, new MockAccountPreference().ratio(ratio).depenses(BigDecimal.valueOf(0.0)));
+        this(singleEntries, new MockSingleAccountPreference().ratio(ratio).depenses(BigDecimal.valueOf(0.0)));
         this.calendar = calendar;
     }
 
@@ -37,7 +36,7 @@ public class SingleAccountCalculator {
     }
 
     public BigDecimal getTotal() {
-        total = accountPreference.getDepenses();
+        total = singleAccountPreference.getDepenses();
         for (SingleEntry each : singleAccountFile.getEntries()) {
             total = total.add(BigDecimal.valueOf(each.value));
         }
@@ -53,6 +52,6 @@ public class SingleAccountCalculator {
     }
 
     public BigDecimal getRatio() {
-        return accountPreference.getRatio();
+        return singleAccountPreference.getRatio();
     }
 }

@@ -59,7 +59,7 @@ public class InsertActivity extends FragmentActivity {
     public void setPrice(double price) {
         this.price = price;
         try {
-            Cacount.getAccountPreference(getApplicationContext()).createInstance().insert(category, label, price);
+            Cacount.getMainAccount(getApplicationContext()).createInstance().insert(category, label, price);
         } catch (AccountInterface.CouldNotInitiateAccountException e) {
             e.printStackTrace();
         }

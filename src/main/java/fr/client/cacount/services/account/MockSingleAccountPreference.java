@@ -1,22 +1,20 @@
 package fr.client.cacount.services.account;
 
-import fr.client.cacount.services.preferencemanager.AndroidPreferenceManager;
-
 import java.math.BigDecimal;
 
 /**
  * Created by svirch_n on 05/03/17.
  */
-public class MockAccountPreference extends AccountPreference {
+public class MockSingleAccountPreference extends SingleAccountPreference {
 
     private BigDecimal ratio;
     private BigDecimal depenses;
 
-    public MockAccountPreference() {
+    public MockSingleAccountPreference() {
         super(null);
     }
 
-    public MockAccountPreference ratio(BigDecimal ratio) {
+    public MockSingleAccountPreference ratio(BigDecimal ratio) {
         this.ratio = ratio;
         return this;
     }
@@ -26,7 +24,7 @@ public class MockAccountPreference extends AccountPreference {
         return ratio;
     }
 
-    public AccountPreference depenses(BigDecimal bigDecimal) {
+    public SingleAccountPreference depenses(BigDecimal bigDecimal) {
         depenses = bigDecimal;
         return this;
     }

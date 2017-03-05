@@ -6,6 +6,11 @@
         android:title="@string/primary_account"
         >
 
+        <CheckBoxPreference
+            android:title="@string/notification_showed"
+            android:key="@string/pref_notification"
+            android:defaultValue="true"/>
+
         <EditTextPreference
         android:title="Ratio"
         android:defaultValue="0"
@@ -36,6 +41,11 @@
     <PreferenceCategory
         android:title="@string/shared_account"
         >
+
+        <CheckBoxPreference
+            android:title="@string/notification_showed"
+            android:key="@string/pref_shared_notification"
+            android:defaultValue="true"/>
 
         <EditTextPreference
             android:title="Fichier"

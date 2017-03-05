@@ -1,17 +1,13 @@
 package fr.client.cacount.services.account;
 
-import fr.client.cacount.Cacount;
 import fr.client.cacount.services.calendar.MockCalendar;
 import fr.client.cacount.services.io.file.SingleAccountFile;
 import fr.client.cacount.services.io.file.SingleEntry;
 import fr.client.cacount.services.io.manager.MockLineManager;
-import fr.client.cacount.services.preferencemanager.MockPreferenceManager;
-import fr.client.cacount.services.utils.CSVLineCreator;
 import fr.client.cacount.utils.log.MockLog;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import static junit.framework.TestCase.*;
 
@@ -94,7 +90,7 @@ public class SingleAccountFileTest {
     public void getTotalWithDepense() throws Exception {
         SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(
                 new SingleEntries(new SingleEntry[]{new SingleEntry().price(10.50)}),
-                new MockAccountPreference().depenses(new BigDecimal(10)));
+                new MockSingleAccountPreference().depenses(new BigDecimal(10)));
         assertEquals(10.50 + 10.00, singleAccountCalculator.getTotal().doubleValue());
 
     }

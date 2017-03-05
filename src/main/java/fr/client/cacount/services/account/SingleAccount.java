@@ -1,8 +1,5 @@
 package fr.client.cacount.services.account;
 
-import fr.client.cacount.Cacount;
-import fr.client.cacount.services.calendar.ACalendar;
-import fr.client.cacount.services.calendar.AndroidCalendar;
 import fr.client.cacount.services.io.file.SingleAccountFile;
 import fr.client.cacount.services.io.manager.LineManager;
 import fr.client.cacount.view.utils.NotificationContent;
@@ -19,13 +16,13 @@ public class SingleAccount implements AccountInterface {
     private final SingleAccountCalculator calculator;
     private final SingleAccountFile singleAccountFile;
 
-    protected SingleAccount(AccountPreference accountPreference) throws CouldNotInitiateAccountException {
+    protected SingleAccount(SingleAccountPreference singleAccountPreference) throws CouldNotInitiateAccountException {
         try {
-            this.singleAccountFile = new SingleAccountFile(new LineManager(accountPreference.getFilename()));
+            this.singleAccountFile = new SingleAccountFile(new LineManager(singleAccountPreference.getFilename()));
         } catch (IOException | SingleAccountFile.ParserException e) {
             throw new CouldNotInitiateAccountException(e);
         }
-        this.calculator = new SingleAccountCalculator(singleAccountFile.getEntries(), accountPreference);
+        this.calculator = new SingleAccountCalculator(singleAccountFile.getEntries(), singleAccountPreference);
     }
 
     @Override
