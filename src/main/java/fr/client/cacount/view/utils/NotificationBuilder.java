@@ -12,7 +12,6 @@ import android.support.v4.app.NotificationCompat;
  */
 public class NotificationBuilder extends NotificationCompat.Builder {
 
-    public static final int NOTIFICATION_ID = 1;
     private final Context context;
     private Notification notification;
 
@@ -27,10 +26,10 @@ public class NotificationBuilder extends NotificationCompat.Builder {
         this.setContentIntent(pendingIntent);
     }
 
-    public Notification buildAndNotify() {
+    public Notification buildAndNotify(int notificatin_id) {
         notification = this.build();
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(NOTIFICATION_ID, notification);
+        notificationManager.notify(notificatin_id, notification);
         return notification;
     }
 

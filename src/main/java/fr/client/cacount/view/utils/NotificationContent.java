@@ -5,8 +5,13 @@ package fr.client.cacount.view.utils;
  */
 public class NotificationContent {
 
+    public final int notificationID;
     public String title;
     public String content;
+
+    public NotificationContent(int notificationID) {
+        this.notificationID = notificationID;
+    }
 
     public NotificationContent title(String title) {
         this.title = title;

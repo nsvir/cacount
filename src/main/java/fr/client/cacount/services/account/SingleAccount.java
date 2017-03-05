@@ -33,11 +33,11 @@ public class SingleAccount implements AccountInterface {
         try {
             singleAccountFile.reload();
         } catch (IOException | SingleAccountFile.ParserException e) {
-            new NotificationContent().title("Could not Parse file");
+            new NotificationContent(1).title("Could not Parse file");
         }
         BigDecimal total = calculator.getTotal();
         BigDecimal earnedMoney = calculator.getEarnedMoney();
-        return new NotificationContent()
+        return new NotificationContent(1)
                 .title(String.format(Locale.FRANCE, "%.2f€ (%.2f€)", (earnedMoney.subtract(total)), calculator.getRatio()))
                 .content(String.format(Locale.FRANCE, "Total: %.2f€", total));
     }
