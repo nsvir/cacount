@@ -3,11 +3,15 @@ package fr.client.cacount.services.account;
 import fr.client.cacount.Cacount;
 import fr.client.cacount.services.calendar.MockCalendar;
 import fr.client.cacount.services.io.file.SingleAccountFile;
+import fr.client.cacount.services.io.file.SingleEntry;
 import fr.client.cacount.services.io.manager.MockLineManager;
 import fr.client.cacount.services.preferencemanager.MockPreferenceManager;
 import fr.client.cacount.services.utils.CSVLineCreator;
 import fr.client.cacount.utils.log.MockLog;
 import org.junit.Test;
+
+import java.math.BigDecimal;
+import java.util.Arrays;
 
 import static junit.framework.TestCase.*;
 
@@ -74,7 +78,7 @@ public class SingleAccountFileTest {
 
     @Test
     public void getTotal() throws Exception {
-        String[] entries = new String[]{
+        String[] qzd = new String[]{
                 CSVLineCreator.price("10"),
                 CSVLineCreator.price("10.53"),
                 CSVLineCreator.price("12"),
@@ -82,36 +86,30 @@ public class SingleAccountFileTest {
                 CSVLineCreator.price("30.254"),
                 CSVLineCreator.price("500.9"),
         };
-        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new MockLineManager().reader(entries), new MockCalendar());
+        SingleEntries entries = new SingleEntries(new SingleEntry[] {
+                new SingleEntry().price(10),
+                new SingleEntry().price(10.53),
+                new SingleEntry().price(12),
+                new SingleEntry().price(-10.60),
+                new SingleEntry().price(30.254),
+                new SingleEntry().price(500.9)
+        });
+        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(entries, new MockCalendar(), BigDecimal.ZERO);
         assertEquals(553.084, singleAccountCalculator.getTotal().doubleValue());
     }
 
     @Test
     public void getEarnedMoneySimple() throws Exception {
-        double ratio = 5;
+        BigDecimal ratio = BigDecimal.valueOf(5);
         int days = 10;
-        Cacount.setPreferenceManager(new MockPreferenceManager().ratio(ratio));
-        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new MockLineManager(), new MockCalendar(days));
-        assertEquals(ratio * days, singleAccountCalculator.getEarnedMoney().doubleValue());
-    }
-
-    @Test
-    public void getEarnedMoneySubtraction() throws Exception {
-        double ratio = 5;
-        int days = 10;
-        int firstDay = 5;
-        Cacount.setPreferenceManager(new MockPreferenceManager().ratio(ratio));
-        String[] lines = {CSVLineCreator.date(CSVLineCreator.day(firstDay))};
-
-        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new MockLineManager().reader(lines), new MockCalendar(days));
-        assertEquals(ratio * (days), singleAccountCalculator.getEarnedMoney().doubleValue());
+        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new SingleEntries(), new MockCalendar(days), ratio);
+        assertEquals(ratio.doubleValue() * days, singleAccountCalculator.getEarnedMoney().doubleValue());
     }
 
     @Test
     public void getEarnedMoneyFromOneDay() throws Exception {
         double expected = 10;
-        Cacount.setPreferenceManager(new MockPreferenceManager().ratio(expected));
-        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new MockLineManager(), new MockCalendar(1));
+        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new SingleEntries(), new MockCalendar(1), BigDecimal.valueOf(10));
         assertEquals(expected, singleAccountCalculator.getEarnedMoney().doubleValue());
 
     }
@@ -119,7 +117,7 @@ public class SingleAccountFileTest {
     @Test
     public void getDay() throws Exception {
         int date = 10;
-        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new MockLineManager().reader(new String[]{"01/10/2016, 08:34:50, CATEGORY, LABEL, 13.2"}), new MockCalendar(date));
+        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new SingleEntries(), new MockCalendar(date));
         assertEquals(date, singleAccountCalculator.getToday().intValue());
     }
 

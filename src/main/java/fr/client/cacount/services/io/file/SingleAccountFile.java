@@ -1,6 +1,7 @@
 package fr.client.cacount.services.io.file;
 
 
+import fr.client.cacount.services.account.SingleEntries;
 import fr.client.cacount.services.io.manager.MockLineManager;
 import fr.client.cacount.utils.log.AndroidLog;
 import fr.client.cacount.utils.log.Log;
@@ -22,7 +23,7 @@ public class SingleAccountFile {
     private final ALineManager manager;
     private LineReader lineReader;
     protected ACalendar calendar;
-    private List<AccountEntry> entries;
+    private SingleEntries entries;
     private LineWriter lineWriterFile;
     private Log log = new MockLog();
 
@@ -31,10 +32,11 @@ public class SingleAccountFile {
 
     }
 
-    protected SingleAccountFile(ALineManager manager, ACalendar calendar, Log log) throws IOException, ParserException {
+    public SingleAccountFile(ALineManager manager, ACalendar calendar, Log log) throws IOException, ParserException {
         this.calendar = calendar;
         this.manager = manager;
         this.log = log;
+        this.entries = new SingleEntries();
         load();
     }
 
@@ -50,7 +52,7 @@ public class SingleAccountFile {
 
     private void parseFile(LineReader lineReader) throws IOException, ParserException {
         String line;
-        entries = new ArrayList<>();
+        this.entries.clear();
         while ((line = lineReader.readLine()) != null) {
             String[] split = line.split(",");
             if (split.length != 5) {
@@ -66,8 +68,8 @@ public class SingleAccountFile {
     }
 
     private void addEntry(String date, String time, String label, String category, double price) {
-        AccountEntry entry;
-        entry = new AccountEntry();
+        SingleEntry entry;
+        entry = new SingleEntry();
         entry.date = date;
         entry.time = time;
         entry.category = category;
@@ -90,11 +92,11 @@ public class SingleAccountFile {
         }
     }
 
-    public void reload() {
-
+    public void reload() throws IOException, ParserException {
+        load();
     }
 
-    public List<AccountEntry> getEntries() {
+    public SingleEntries getEntries() {
         return entries;
     }
 

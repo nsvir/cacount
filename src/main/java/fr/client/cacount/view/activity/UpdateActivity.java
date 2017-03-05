@@ -23,9 +23,8 @@ public class UpdateActivity extends Activity {
     }
 
     public static void updateNotification(Context context) {
-        Cacount.setPreferenceManager(new AndroidPreferenceManager(context));
         try {
-            NotificationContent notificationBuilder = Cacount.PRINCIPAL.createInstance().getNotificationContent();
+            NotificationContent notificationBuilder = Cacount.getAccountPreference(context).createInstance().getNotificationContent();
             DefaultNotificationBuilder defaultNotificationBuilder = new DefaultNotificationBuilder(context, notificationBuilder);
             defaultNotificationBuilder.buildAndNotify();
         } catch (AccountInterface.CouldNotInitiateAccountException e) {

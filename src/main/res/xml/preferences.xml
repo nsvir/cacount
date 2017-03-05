@@ -9,4 +9,13 @@
         android:key="@string/pref_ratio"
         android:inputType="numberDecimal"
         />
+
+    <EditTextPreference
+        android:title="Fichier"
+        android:summary="Le nom du fichier à utiliser"
+        android:defaultValue="defaultCacount.csv"
+        android:id="@+id/filename"
+        android:key="@string/pref_filename"
+        android:inputType="text"
+        />
 </PreferenceScreen>

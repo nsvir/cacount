@@ -1,6 +1,8 @@
 package fr.client.cacount;
 
+import android.content.Context;
 import fr.client.cacount.services.account.AccountPreference;
+import fr.client.cacount.services.preferencemanager.AndroidPreferenceManager;
 import fr.client.cacount.services.preferencemanager.EmptyPreferenceManager;
 import fr.client.cacount.services.preferencemanager.PreferenceManagerInterface;
 
@@ -12,15 +14,14 @@ import java.math.BigDecimal;
 public class Cacount {
 
     public static final String[] CATEGORY_LIST = {"Alimentaire", "Transport", "Logistique", "Soirée", "Autre", "Soin/Santé"};
-    public static final AccountPreference PRINCIPAL = new AccountPreference("Transactions.csv");
+    private static AccountPreference PRINCIPAL = null;
     public static final String TAG = "Cacount";
-    private static PreferenceManagerInterface preferenceManager = new EmptyPreferenceManager();
 
-    public static void setPreferenceManager(PreferenceManagerInterface preference) {
-        preferenceManager = preference;
-    }
-
-    public static BigDecimal getRatio() {
-        return preferenceManager.getRatio();
+    public static AccountPreference getAccountPreference(Context context) {
+        if (PRINCIPAL == null) {
+            AndroidPreferenceManager androidPreferenceManager = new AndroidPreferenceManager(context);
+            PRINCIPAL = new AccountPreference(androidPreferenceManager.getFilename(), androidPreferenceManager.getRatio());
+        }
+        return PRINCIPAL;
     }
 }

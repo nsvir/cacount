@@ -19,27 +19,30 @@ public class SingleAccount implements AccountInterface {
     private final SingleAccountCalculator calculator;
     private final SingleAccountFile singleAccountFile;
 
-    protected SingleAccount(String filename) throws CouldNotInitiateAccountException {
-        ACalendar calendar = new AndroidCalendar();
+    protected SingleAccount(AccountPreference accountPreference) throws CouldNotInitiateAccountException {
         try {
-            this.singleAccountFile = new SingleAccountFile(new LineManager(filename));
+            this.singleAccountFile = new SingleAccountFile(new LineManager(accountPreference.filename));
         } catch (IOException | SingleAccountFile.ParserException e) {
             throw new CouldNotInitiateAccountException(e);
         }
-        this.calculator = new SingleAccountCalculator(singleAccountFile, calendar);
+        this.calculator = new SingleAccountCalculator(singleAccountFile.getEntries(), accountPreference.ratio);
     }
 
     @Override
     public NotificationContent getNotificationContent() {
-        singleAccountFile.reload();
+        try {
+            singleAccountFile.reload();
+        } catch (IOException | SingleAccountFile.ParserException e) {
+            new NotificationContent().title("Could not Parse file");
+        }
         BigDecimal total = calculator.getTotal();
         BigDecimal earnedMoney = calculator.getEarnedMoney();
         return new NotificationContent()
-                .title(String.format(Locale.FRANCE, "%.2f€ (%.2f€)", (earnedMoney.subtract(total)), Cacount.getRatio()))
+                .title(String.format(Locale.FRANCE, "%.2f€ (%.2f€)", (earnedMoney.subtract(total)), calculator.getRatio()))
                 .content(String.format(Locale.FRANCE, "Total: %.2f€", total));
     }
 
     public void insert(String category, String label, double price) {
-
+        singleAccountFile.insert(category, label, price);
     }
 }
