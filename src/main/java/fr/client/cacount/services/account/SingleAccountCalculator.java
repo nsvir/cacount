@@ -17,20 +17,22 @@ public class SingleAccountCalculator {
 
     private final SingleEntries singleAccountFile;
     private final BigDecimal ratio;
+    private final BigDecimal depenses;
     private ACalendar calendar;
     private BigDecimal total;
     private BigDecimal earnedMoney;
 
 
 
-    protected SingleAccountCalculator(SingleEntries singleEntries, BigDecimal ratio) {
+    protected SingleAccountCalculator(SingleEntries singleEntries, AccountPreference accountPreference) {
         this.singleAccountFile = singleEntries;
         this.calendar = new AndroidCalendar();
-        this.ratio = ratio;
+        this.ratio = accountPreference.ratio;
+        this.depenses = accountPreference.depenses;
     }
 
     protected SingleAccountCalculator(SingleEntries singleEntries, MockCalendar calendar, BigDecimal ratio) throws IOException, SingleAccountFile.ParserException {
-        this(singleEntries, ratio);
+        this(singleEntries, new AccountPreference("").ratio(ratio));
         this.calendar = calendar;
     }
 
@@ -39,7 +41,7 @@ public class SingleAccountCalculator {
     }
 
     public BigDecimal getTotal() {
-        total = BigDecimal.valueOf(0d);
+        total = depenses;
         for (SingleEntry each : singleAccountFile.getEntries()) {
             total = total.add(BigDecimal.valueOf(each.value));
         }

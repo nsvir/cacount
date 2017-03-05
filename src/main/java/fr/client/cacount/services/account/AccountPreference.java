@@ -8,7 +8,12 @@ import java.math.BigDecimal;
 public class AccountPreference {
 
     public final String filename;
-    public final BigDecimal ratio;
+    public BigDecimal ratio;
+    public BigDecimal depenses;
+
+    protected AccountPreference() {
+        filename = "";
+    }
 
     public AccountPreference(String filename) {
         this(filename, BigDecimal.ZERO);
@@ -19,7 +24,19 @@ public class AccountPreference {
         this.ratio = ratio;
     }
 
+
+
     public SingleAccount createInstance() throws AccountInterface.CouldNotInitiateAccountException {
         return new SingleAccount(this);
+    }
+
+    public AccountPreference ratio(BigDecimal ratio) {
+        this.ratio = ratio;
+        return this;
+    }
+
+    public AccountPreference depenses(BigDecimal depenses) {
+        this.depenses = depenses;
+        return this;
     }
 }

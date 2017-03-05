@@ -18,4 +18,13 @@
         android:key="@string/pref_filename"
         android:inputType="text"
         />
+
+    <EditTextPreference
+        android:title="Depenses courante"
+        android:summary="Les dépenses non contabilisées sur le fichiers"
+        android:defaultValue="0.0"
+        android:id="@+id/depenses"
+        android:key="@string/pref_depenses"
+        android:inputType="numberDecimal"
+        />
 </PreferenceScreen>

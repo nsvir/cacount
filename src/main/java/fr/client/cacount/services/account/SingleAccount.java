@@ -25,7 +25,7 @@ public class SingleAccount implements AccountInterface {
         } catch (IOException | SingleAccountFile.ParserException e) {
             throw new CouldNotInitiateAccountException(e);
         }
-        this.calculator = new SingleAccountCalculator(singleAccountFile.getEntries(), accountPreference.ratio);
+        this.calculator = new SingleAccountCalculator(singleAccountFile.getEntries(), accountPreference);
     }
 
     @Override

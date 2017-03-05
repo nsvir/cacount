@@ -3,10 +3,6 @@ package fr.client.cacount;
 import android.content.Context;
 import fr.client.cacount.services.account.AccountPreference;
 import fr.client.cacount.services.preferencemanager.AndroidPreferenceManager;
-import fr.client.cacount.services.preferencemanager.EmptyPreferenceManager;
-import fr.client.cacount.services.preferencemanager.PreferenceManagerInterface;
-
-import java.math.BigDecimal;
 
 /**
  * Created by svirch_n on 12/02/17.
@@ -20,7 +16,9 @@ public class Cacount {
     public static AccountPreference getAccountPreference(Context context) {
         if (PRINCIPAL == null) {
             AndroidPreferenceManager androidPreferenceManager = new AndroidPreferenceManager(context);
-            PRINCIPAL = new AccountPreference(androidPreferenceManager.getFilename(), androidPreferenceManager.getRatio());
+            PRINCIPAL = new AccountPreference(androidPreferenceManager.getFilename())
+                    .ratio(androidPreferenceManager.getRatio())
+                    .depenses(androidPreferenceManager.getDepenses());
         }
         return PRINCIPAL;
     }

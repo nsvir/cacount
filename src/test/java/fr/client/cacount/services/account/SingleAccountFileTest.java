@@ -99,6 +99,15 @@ public class SingleAccountFileTest {
     }
 
     @Test
+    public void getTotalWithDepense() throws Exception {
+        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(
+                new SingleEntries(new SingleEntry[]{new SingleEntry().price(10.50)}),
+                new AccountPreference().depenses(new BigDecimal(10)));
+        assertEquals(10.50 + 10.00, singleAccountCalculator.getTotal().doubleValue());
+
+    }
+
+    @Test
     public void getEarnedMoneySimple() throws Exception {
         BigDecimal ratio = BigDecimal.valueOf(5);
         int days = 10;
