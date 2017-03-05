@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     >
-    <EditTextPreference
+
+    <PreferenceCategory
+        android:title="@string/primary_account"
+        >
+
+        <EditTextPreference
         android:title="Ratio"
         android:summary="Le ratio journalier du mois courant"
         android:defaultValue="0"
@@ -9,6 +14,7 @@
         android:key="@string/pref_ratio"
         android:inputType="numberDecimal"
         />
+
 
     <EditTextPreference
         android:title="Fichier"
@@ -27,4 +33,6 @@
         android:key="@string/pref_depenses"
         android:inputType="numberDecimal"
         />
+    </PreferenceCategory>
+
 </PreferenceScreen>
