@@ -16,19 +16,15 @@ import java.math.BigDecimal;
 public class SingleAccountCalculator {
 
     private final SingleEntries singleAccountFile;
-    private final BigDecimal ratio;
-    private final BigDecimal depenses;
     private ACalendar calendar;
     private BigDecimal total;
-    private BigDecimal earnedMoney;
-
+    private AccountPreference accountPreference;
 
 
     protected SingleAccountCalculator(SingleEntries singleEntries, AccountPreference accountPreference) {
         this.singleAccountFile = singleEntries;
         this.calendar = new AndroidCalendar();
-        this.ratio = accountPreference.ratio;
-        this.depenses = accountPreference.depenses;
+        this.accountPreference = accountPreference;
     }
 
     protected SingleAccountCalculator(SingleEntries singleEntries, MockCalendar calendar, BigDecimal ratio) throws IOException, SingleAccountFile.ParserException {
@@ -41,7 +37,7 @@ public class SingleAccountCalculator {
     }
 
     public BigDecimal getTotal() {
-        total = depenses;
+        total = accountPreference.depenses;
         for (SingleEntry each : singleAccountFile.getEntries()) {
             total = total.add(BigDecimal.valueOf(each.value));
         }
@@ -57,6 +53,6 @@ public class SingleAccountCalculator {
     }
 
     public BigDecimal getRatio() {
-        return ratio;
+        return accountPreference.ratio;
     }
 }
