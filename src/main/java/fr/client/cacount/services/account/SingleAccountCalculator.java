@@ -28,7 +28,7 @@ public class SingleAccountCalculator {
     }
 
     protected SingleAccountCalculator(SingleEntries singleEntries, MockCalendar calendar, BigDecimal ratio) throws IOException, SingleAccountFile.ParserException {
-        this(singleEntries, new AccountPreference("").ratio(ratio));
+        this(singleEntries, new MockAccountPreference().ratio(ratio).depenses(BigDecimal.valueOf(0.0)));
         this.calendar = calendar;
     }
 
@@ -37,7 +37,7 @@ public class SingleAccountCalculator {
     }
 
     public BigDecimal getTotal() {
-        total = accountPreference.depenses;
+        total = accountPreference.getDepenses();
         for (SingleEntry each : singleAccountFile.getEntries()) {
             total = total.add(BigDecimal.valueOf(each.value));
         }
@@ -53,6 +53,6 @@ public class SingleAccountCalculator {
     }
 
     public BigDecimal getRatio() {
-        return accountPreference.ratio;
+        return accountPreference.getRatio();
     }
 }

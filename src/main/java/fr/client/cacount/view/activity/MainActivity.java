@@ -1,27 +1,20 @@
 package fr.client.cacount.view.activity;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
-import fr.client.cacount.R;
-import fr.client.cacount.view.utils.UpdateAlarm;
+import fr.client.cacount.view.activity.fragment.ConfigurationFragment;
 
-public class MainActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener
+public class MainActivity extends Activity
 {
-    /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
-        registerComponentCallbacks(this);
+
+        // Display the fragment as the main content.
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new ConfigurationFragment())
+                .commit();
         UpdateActivity.updateNotification(this);
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-    }
 }

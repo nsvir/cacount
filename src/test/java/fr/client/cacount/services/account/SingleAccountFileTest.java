@@ -78,14 +78,6 @@ public class SingleAccountFileTest {
 
     @Test
     public void getTotal() throws Exception {
-        String[] qzd = new String[]{
-                CSVLineCreator.price("10"),
-                CSVLineCreator.price("10.53"),
-                CSVLineCreator.price("12"),
-                CSVLineCreator.price("-10.60"),
-                CSVLineCreator.price("30.254"),
-                CSVLineCreator.price("500.9"),
-        };
         SingleEntries entries = new SingleEntries(new SingleEntry[] {
                 new SingleEntry().price(10),
                 new SingleEntry().price(10.53),
@@ -102,7 +94,7 @@ public class SingleAccountFileTest {
     public void getTotalWithDepense() throws Exception {
         SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(
                 new SingleEntries(new SingleEntry[]{new SingleEntry().price(10.50)}),
-                new AccountPreference().depenses(new BigDecimal(10)));
+                new MockAccountPreference().depenses(new BigDecimal(10)));
         assertEquals(10.50 + 10.00, singleAccountCalculator.getTotal().doubleValue());
 
     }

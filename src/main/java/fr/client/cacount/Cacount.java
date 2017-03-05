@@ -15,11 +15,9 @@ public class Cacount {
 
     public static AccountPreference getAccountPreference(Context context) {
         if (PRINCIPAL == null) {
-            AndroidPreferenceManager androidPreferenceManager = new AndroidPreferenceManager(context);
-            PRINCIPAL = new AccountPreference(androidPreferenceManager.getFilename())
-                    .ratio(androidPreferenceManager.getRatio())
-                    .depenses(androidPreferenceManager.getDepenses());
+            PRINCIPAL = new AccountPreference(new AndroidPreferenceManager(context));
         }
         return PRINCIPAL;
     }
+
 }

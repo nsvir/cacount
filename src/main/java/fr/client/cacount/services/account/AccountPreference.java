@@ -1,5 +1,7 @@
 package fr.client.cacount.services.account;
 
+import fr.client.cacount.services.preferencemanager.AndroidPreferenceManager;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,36 +9,25 @@ import java.math.BigDecimal;
  */
 public class AccountPreference {
 
-    public final String filename;
-    public BigDecimal ratio;
-    public BigDecimal depenses;
+    private final AndroidPreferenceManager androidPreferenceManager;
 
-    protected AccountPreference() {
-        filename = "";
+    public AccountPreference(AndroidPreferenceManager androidPreferenceManager) {
+        this.androidPreferenceManager = androidPreferenceManager;
     }
-
-    public AccountPreference(String filename) {
-        this(filename, BigDecimal.ZERO);
-    }
-
-    public AccountPreference(String filename, BigDecimal ratio) {
-        this.filename = filename;
-        this.ratio = ratio;
-    }
-
-
 
     public SingleAccount createInstance() throws AccountInterface.CouldNotInitiateAccountException {
         return new SingleAccount(this);
     }
 
-    public AccountPreference ratio(BigDecimal ratio) {
-        this.ratio = ratio;
-        return this;
+    public String getFilename() {
+        return androidPreferenceManager.getFilename();
     }
 
-    public AccountPreference depenses(BigDecimal depenses) {
-        this.depenses = depenses;
-        return this;
+    public BigDecimal getRatio() {
+        return androidPreferenceManager.getRatio();
+    }
+
+    public BigDecimal getDepenses() {
+        return androidPreferenceManager.getDepenses();
     }
 }

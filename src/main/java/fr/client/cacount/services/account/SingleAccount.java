@@ -21,7 +21,7 @@ public class SingleAccount implements AccountInterface {
 
     protected SingleAccount(AccountPreference accountPreference) throws CouldNotInitiateAccountException {
         try {
-            this.singleAccountFile = new SingleAccountFile(new LineManager(accountPreference.filename));
+            this.singleAccountFile = new SingleAccountFile(new LineManager(accountPreference.getFilename()));
         } catch (IOException | SingleAccountFile.ParserException e) {
             throw new CouldNotInitiateAccountException(e);
         }
