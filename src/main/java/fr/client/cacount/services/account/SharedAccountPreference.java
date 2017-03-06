@@ -15,7 +15,7 @@ public class SharedAccountPreference implements AccountPreference {
 
     @Override
     public SharedAccount createInstance() throws AccountInterface.CouldNotInitiateAccountException {
-        return new SharedAccount();
+        return new SharedAccount(this);
     }
 
     @Override

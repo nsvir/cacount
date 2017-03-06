@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.widget.*;
 import fr.client.cacount.Cacount;
 import fr.client.cacount.services.account.AccountInterface;
 import fr.client.cacount.view.activity.fragment.LabelFragment;
@@ -20,17 +22,25 @@ public class InsertActivity extends FragmentActivity {
     private String category;
     private Fragment current;
     private String label;
-    private double price;
+    private RadioGroup group;
+    private CheckBox shared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.container);
+        group = (RadioGroup) findViewById(R.id.group);
+        RadioButton me = (RadioButton) findViewById(R.id.me);
+        RadioButton other = (RadioButton) findViewById(R.id.other);
+        shared = (CheckBox) findViewById(R.id.shared);
+        shared.setOnCheckedChangeListener((compoundButton, checked) -> {
+            me.setEnabled(checked);
+            other.setEnabled(checked);
+        });
         CategoryFragment fragment = new CategoryFragment();
         Bundle extras = getIntent().getExtras();
         fragment.setArguments(extras);
         setFragment(fragment);
-
     }
 
     @Override
@@ -62,12 +72,19 @@ public class InsertActivity extends FragmentActivity {
     }
 
     public void setPrice(double price) {
-        this.price = price;
         try {
-            Cacount.getMainAccount(getApplicationContext()).createInstance().insert(category, label, price);
+            if (shared.isChecked()) {
+                Cacount.getSharedAccount(getApplicationContext()).createInstance().insert(getSelection(), category, label, price);
+            } else {
+                Cacount.getMainAccount(getApplicationContext()).createInstance().insert(category, label, price);
+            }
         } catch (AccountInterface.CouldNotInitiateAccountException e) {
             e.printStackTrace();
         }
         finish();
+    }
+
+    private String getSelection() {
+        return String.valueOf(((RadioButton) findViewById(group.getCheckedRadioButtonId())).getText());
     }
 }

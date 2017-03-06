@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * Created by svirch_n on 11/02/17.
  */
-public class SingleAccountFile {
+public class SingleAccountFile extends AccountFile {
 
     private final ALineManager manager;
     private LineReader lineReader;
