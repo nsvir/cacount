@@ -42,11 +42,13 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:layout_marginEnd="20dp"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:text="Nicolas"/>
 
             <RadioButton
                 android:id="@+id/other"
                 android:layout_width="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:text="Marion"/>
