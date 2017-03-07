@@ -9,4 +9,9 @@ public class SharedEntry extends SingleEntry {
 
     public String owner;
 
+    public SharedEntry owner(String owner) {
+        this.owner = owner;
+        return this;
+    }
+
 }

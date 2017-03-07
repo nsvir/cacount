@@ -25,16 +25,11 @@ public class UpdateActivity extends Activity {
 
     public static void updateNotification(Context context) {
         try {
-            for (AccountPreference each: Cacount.getAccounts(context)) {
-                NotificationContent notificationBuilder = each.createInstance().getNotificationContent();
-                if (each.displayNotification()) {
-                    DefaultNotificationBuilder defaultNotificationBuilder = new DefaultNotificationBuilder(context, notificationBuilder);
-                    defaultNotificationBuilder.buildAndNotify(notificationBuilder.notificationID);
-                } else {
-                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-                    notificationManager.cancel(notificationBuilder.notificationID);
-                }
-            }
+            NotificationContent main = Cacount.getMainAccount(context).createInstance().getNotificationContent();
+            NotificationContent shared = Cacount.getSharedAccount(context).createInstance().getNotificationContent();
+            NotificationContent notificationBuilder = new NotificationContent(1).title(main.title).content(shared.content);
+            DefaultNotificationBuilder defaultNotificationBuilder = new DefaultNotificationBuilder(context, notificationBuilder);
+            defaultNotificationBuilder.buildAndNotify(notificationBuilder.notificationID);
         } catch (AccountInterface.CouldNotInitiateAccountException e) {
             e.printStackTrace();
         }

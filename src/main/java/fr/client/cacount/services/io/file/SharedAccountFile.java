@@ -64,4 +64,8 @@ public class SharedAccountFile extends AccountFile {
         entries.add(createEntry(owner, date, time, category, label, price));
         insert(lineCreator);
     }
+
+    public SharedEntries getEntries() {
+        return entries;
+    }
 }
