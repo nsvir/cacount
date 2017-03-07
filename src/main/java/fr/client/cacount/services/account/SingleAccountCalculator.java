@@ -3,8 +3,8 @@ package fr.client.cacount.services.account;
 import fr.client.cacount.services.calendar.ACalendar;
 import fr.client.cacount.services.calendar.AndroidCalendar;
 import fr.client.cacount.services.calendar.MockCalendar;
+import fr.client.cacount.services.io.file.AccountFile;
 import fr.client.cacount.services.io.file.SingleEntry;
-import fr.client.cacount.services.io.file.SingleAccountFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,12 +26,12 @@ public class SingleAccountCalculator {
         this.singleAccountPreference = singleAccountPreference;
     }
 
-    protected SingleAccountCalculator(SingleEntries singleEntries, MockCalendar calendar, BigDecimal ratio) throws IOException, SingleAccountFile.ParserException {
+    protected SingleAccountCalculator(SingleEntries singleEntries, MockCalendar calendar, BigDecimal ratio) throws IOException, AccountFile.ParserException {
         this(singleEntries, new MockSingleAccountPreference().ratio(ratio).depenses(BigDecimal.valueOf(0.0)));
         this.calendar = calendar;
     }
 
-    public SingleAccountCalculator(SingleEntries singleEntries, MockCalendar mockCalendar) throws IOException, SingleAccountFile.ParserException {
+    public SingleAccountCalculator(SingleEntries singleEntries, MockCalendar mockCalendar) throws IOException, AccountFile.ParserException {
         this(singleEntries, mockCalendar, BigDecimal.ZERO);
     }
 

@@ -1,5 +1,6 @@
 package fr.client.cacount.services.account;
 
+import fr.client.cacount.services.io.file.AccountFile;
 import fr.client.cacount.services.io.file.SingleAccountFile;
 import fr.client.cacount.services.io.manager.LineManager;
 import fr.client.cacount.view.utils.NotificationContent;
@@ -19,7 +20,7 @@ public class SingleAccount implements AccountInterface {
     protected SingleAccount(SingleAccountPreference singleAccountPreference) throws CouldNotInitiateAccountException {
         try {
             this.singleAccountFile = new SingleAccountFile(new LineManager(singleAccountPreference.getFilename()));
-        } catch (IOException | SingleAccountFile.ParserException e) {
+        } catch (IOException | AccountFile.ParserException e) {
             throw new CouldNotInitiateAccountException(e);
         }
         this.calculator = new SingleAccountCalculator(singleAccountFile.getEntries(), singleAccountPreference);
@@ -29,7 +30,7 @@ public class SingleAccount implements AccountInterface {
     public NotificationContent getNotificationContent() {
         try {
             singleAccountFile.reload();
-        } catch (IOException | SingleAccountFile.ParserException e) {
+        } catch (IOException | AccountFile.ParserException e) {
             new NotificationContent(1).title("Could not Parse file");
         }
         BigDecimal total = calculator.getTotal();

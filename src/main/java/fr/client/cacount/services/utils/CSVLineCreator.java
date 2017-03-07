@@ -66,5 +66,10 @@ public class CSVLineCreator {
             }
             return result.toString();
         }
+
+        public LineCreator owner(String owner) {
+            defaultLine.add(5, owner);
+            return this;
+        }
     }
 }

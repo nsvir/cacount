@@ -18,6 +18,7 @@ public class AndroidPreferenceManager implements PreferenceManagerInterface {
     private final String depenses;
     private final String notification;
     private final String sharedNotification;
+    private final String sharedFilename;
 
     public AndroidPreferenceManager(Context context) {
         this.preference = PreferenceManager.getDefaultSharedPreferences(context);
@@ -26,6 +27,7 @@ public class AndroidPreferenceManager implements PreferenceManagerInterface {
         depenses = context.getString(R.string.pref_depenses);
         notification = context.getString(R.string.pref_notification);
         sharedNotification = context.getString(R.string.pref_shared_notification);
+        sharedFilename = context.getString(R.string.pref_shared_filename);
     }
 
     @Override
@@ -46,6 +48,10 @@ public class AndroidPreferenceManager implements PreferenceManagerInterface {
     }
 
     public boolean getSharedNotificationDisplayed() {
-        return preference.getBoolean(sharedNotification, true);
+        return false;
+    }
+
+    public String getSharedFilename() {
+        return preference.getString(sharedFilename, "defaultSharedCacount.csv");
     }
 }
