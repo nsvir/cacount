@@ -75,6 +75,9 @@ public class InsertActivity extends FragmentActivity {
         try {
             if (shared.isChecked()) {
                 Cacount.getSharedAccount(getApplicationContext()).createInstance().insert(getSelection(), category, label, price);
+                if (group.getCheckedRadioButtonId() == R.id.me) {
+                    Cacount.getMainAccount(getApplicationContext()).createInstance().insert(category, label, price);
+                }
             } else {
                 Cacount.getMainAccount(getApplicationContext()).createInstance().insert(category, label, price);
             }
