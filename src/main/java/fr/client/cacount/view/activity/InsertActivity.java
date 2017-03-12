@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.*;
 import fr.client.cacount.Cacount;
 import fr.client.cacount.services.account.AccountInterface;
@@ -29,14 +31,23 @@ public class InsertActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.container);
+        View footer = findViewById(R.id.footer);
         group = (RadioGroup) findViewById(R.id.group);
         RadioButton me = (RadioButton) findViewById(R.id.me);
         RadioButton other = (RadioButton) findViewById(R.id.other);
         shared = (CheckBox) findViewById(R.id.shared);
+        footer.setOnClickListener(view -> {
+            shared.setChecked(true);
+        });
         shared.setOnCheckedChangeListener((compoundButton, checked) -> {
+            footer.setClickable(!checked);
+            me.setClickable(checked);
+            other.setClickable(checked);
             me.setEnabled(checked);
             other.setEnabled(checked);
         });
+        me.setClickable(false);
+        other.setClickable(false);
         CategoryFragment fragment = new CategoryFragment();
         Bundle extras = getIntent().getExtras();
         fragment.setArguments(extras);
