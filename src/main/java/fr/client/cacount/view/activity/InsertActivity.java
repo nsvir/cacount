@@ -48,6 +48,7 @@ public class InsertActivity extends FragmentActivity {
         });
         me.setClickable(false);
         other.setClickable(false);
+        footer.setClickable(true);
         CategoryFragment fragment = new CategoryFragment();
         Bundle extras = getIntent().getExtras();
         fragment.setArguments(extras);
