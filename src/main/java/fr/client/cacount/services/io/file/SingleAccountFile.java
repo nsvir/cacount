@@ -50,6 +50,17 @@ public class SingleAccountFile extends AccountFile {
         entries.clear();
     }
 
+    @Override
+    public String[] getLabels() {
+        String[] result = new String[entries.size()];
+        int i = 0;
+        for (SingleEntry entry : entries.getEntries()) {
+            result[i] = entry.label;
+            i++;
+        }
+        return result;
+    }
+
     private SingleEntry createEntry(String date, String time, String label, String category, double price) {
         SingleEntry entry;
         entry = new SingleEntry();

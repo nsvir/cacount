@@ -68,6 +68,9 @@ public abstract class AccountFile {
         load();
     }
 
+    public abstract String[] getLabels();
+
+
     public class ParserException extends Exception {
     }
 }

@@ -53,4 +53,8 @@ public class SharedAccount implements AccountInterface {
     public void insert(String owner, String category, String label, double price) {
         sharedAccountFile.insert(owner, category, label, price);
     }
+
+    public String[] getLabels() {
+        return sharedAccountFile.getLabels();
+    }
 }

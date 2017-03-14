@@ -7,7 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import fr.client.cacount.Cacount;
 import fr.client.cacount.R;
 import fr.client.cacount.view.activity.InsertActivity;
 
@@ -21,7 +25,7 @@ public class LabelFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.edit_text, container, false);
-        EditText editText = (EditText) view.findViewById(R.id.edit_text);
+        AutoCompleteTextView editText = (AutoCompleteTextView) view.findViewById(R.id.edit_text);
         editText.setFocusableInTouchMode(true);
         editText.requestFocus();
         InputMethodManager imm = (InputMethodManager)
@@ -33,7 +37,9 @@ public class LabelFragment extends Fragment {
             }
             return false;
         });
-
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line,
+                Cacount.getLabels(getContext()));
+        editText.setAdapter(adapter);
         return view;
     }
 }

@@ -43,4 +43,8 @@ public class SingleAccount implements AccountInterface {
     public void insert(String category, String label, double price) {
         singleAccountFile.insert(category, label, price);
     }
+
+    public String[] getLabels() {
+        return singleAccountFile.getLabels();
+    }
 }

@@ -54,6 +54,17 @@ public class SharedAccountFile extends AccountFile {
         entries.clear();
     }
 
+    @Override
+    public String[] getLabels() {
+        String[] result = new String[entries.size()];
+        int i = 0;
+        for (SingleEntry entry : entries) {
+            result[i] = entry.label;
+            i++;
+        }
+        return result;
+    }
+
     public void insert(String owner, String category, String label, double price) {
         String time = calendar.nowTime();
         String date = calendar.nowDate();

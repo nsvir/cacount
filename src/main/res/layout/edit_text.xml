@@ -4,7 +4,7 @@
               android:layout_height="wrap_content"
               >
 
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="match_parent"
         android:hint="Label"
         android:id="@+id/edit_text"
@@ -15,5 +15,5 @@
         android:layout_height="wrap_content">
 
 
-    </EditText>
+    </AutoCompleteTextView>
 </RelativeLayout>
