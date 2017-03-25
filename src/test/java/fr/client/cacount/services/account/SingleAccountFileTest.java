@@ -82,13 +82,13 @@ public class SingleAccountFileTest {
                 new SingleEntry().price(30.254),
                 new SingleEntry().price(500.9)
         });
-        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(entries, new MockCalendar(), BigDecimal.ZERO);
+        SingleAccountCalculator singleAccountCalculator = new SingleDailyAccountCalculator(entries, new MockCalendar(), BigDecimal.ZERO);
         assertEquals(553.084, singleAccountCalculator.getTotal().doubleValue());
     }
 
     @Test
     public void getTotalWithDepense() throws Exception {
-        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(
+        SingleAccountCalculator singleAccountCalculator = new SingleDailyAccountCalculator(
                 new SingleEntries(new SingleEntry[]{new SingleEntry().price(10.50)}),
                 new MockSingleAccountPreference().depenses(new BigDecimal(10)));
         assertEquals(10.50 + 10.00, singleAccountCalculator.getTotal().doubleValue());
@@ -99,14 +99,14 @@ public class SingleAccountFileTest {
     public void getEarnedMoneySimple() throws Exception {
         BigDecimal ratio = BigDecimal.valueOf(5);
         int days = 10;
-        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new SingleEntries(), new MockCalendar(days), ratio);
+        SingleAccountCalculator singleAccountCalculator = new SingleDailyAccountCalculator(new SingleEntries(), new MockCalendar(days), ratio);
         assertEquals(ratio.doubleValue() * days, singleAccountCalculator.getEarnedMoney().doubleValue());
     }
 
     @Test
     public void getEarnedMoneyFromOneDay() throws Exception {
         double expected = 10;
-        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new SingleEntries(), new MockCalendar(1), BigDecimal.valueOf(10));
+        SingleAccountCalculator singleAccountCalculator = new SingleDailyAccountCalculator(new SingleEntries(), new MockCalendar(1), BigDecimal.valueOf(10));
         assertEquals(expected, singleAccountCalculator.getEarnedMoney().doubleValue());
 
     }
@@ -114,7 +114,7 @@ public class SingleAccountFileTest {
     @Test
     public void getDay() throws Exception {
         int date = 10;
-        SingleAccountCalculator singleAccountCalculator = new SingleAccountCalculator(new SingleEntries(), new MockCalendar(date));
+        SingleAccountCalculator singleAccountCalculator = new SingleDailyAccountCalculator(new SingleEntries(), new MockCalendar(date));
         assertEquals(date, singleAccountCalculator.getToday().intValue());
     }
 

@@ -7,9 +7,7 @@ import fr.client.cacount.services.account.SharedAccountPreference;
 import fr.client.cacount.services.account.SingleAccountPreference;
 import fr.client.cacount.services.preferencemanager.AndroidPreferenceManager;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * Created by svirch_n on 12/02/17.

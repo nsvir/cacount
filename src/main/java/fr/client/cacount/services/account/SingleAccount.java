@@ -23,7 +23,13 @@ public class SingleAccount implements AccountInterface {
         } catch (IOException | AccountFile.ParserException e) {
             throw new CouldNotInitiateAccountException(e);
         }
-        this.calculator = new SingleAccountCalculator(singleAccountFile.getEntries(), singleAccountPreference);
+        switch (singleAccountPreference.getTransferType()) {
+            case SingleAccountPreference.WEEKLY:
+                this.calculator = new SingleWeeklyAccountCalculator(singleAccountFile.getEntries(), singleAccountPreference);
+                break;
+            default:
+                this.calculator = new SingleDailyAccountCalculator(singleAccountFile.getEntries(), singleAccountPreference);
+        }
     }
 
     @Override

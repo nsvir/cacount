@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 /**
  * Created by svirch_n on 05/03/17.
  */
-public class SingleAccountCalculator {
+public abstract class SingleAccountCalculator {
 
     private final SingleEntries singleAccountFile;
-    private ACalendar calendar;
+    protected ACalendar calendar;
     private BigDecimal total;
     private SingleAccountPreference singleAccountPreference;
 
@@ -43,9 +43,7 @@ public class SingleAccountCalculator {
         return total;
     }
 
-    public BigDecimal getEarnedMoney() {
-        return getRatio().multiply(getToday());
-    }
+    public abstract BigDecimal getEarnedMoney();
 
     public BigDecimal getToday() {
         return BigDecimal.valueOf(calendar.today());

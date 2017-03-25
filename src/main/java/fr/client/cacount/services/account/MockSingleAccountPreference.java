@@ -9,6 +9,7 @@ public class MockSingleAccountPreference extends SingleAccountPreference {
 
     private BigDecimal ratio;
     private BigDecimal depenses;
+    private String transferType;
 
     public MockSingleAccountPreference() {
         super(null);
@@ -32,5 +33,9 @@ public class MockSingleAccountPreference extends SingleAccountPreference {
     @Override
     public BigDecimal getDepenses() {
         return depenses;
+    }
+
+    public void setTransferType(String transferType) {
+        this.transferType = transferType;
     }
 }

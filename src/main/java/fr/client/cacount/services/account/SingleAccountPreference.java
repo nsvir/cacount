@@ -9,6 +9,8 @@ import java.math.BigDecimal;
  */
 public class SingleAccountPreference implements AccountPreference {
 
+    public static final String WEEKLY = "WEEKLY";
+    public static final String DAILY = "DAILY";
     private final AndroidPreferenceManager androidPreferenceManager;
 
     public SingleAccountPreference(AndroidPreferenceManager androidPreferenceManager) {
@@ -36,5 +38,9 @@ public class SingleAccountPreference implements AccountPreference {
 
     public BigDecimal getDepenses() {
         return androidPreferenceManager.getDepenses();
+    }
+
+    public String getTransferType() {
+        return androidPreferenceManager.getTransferType();
     }
 }

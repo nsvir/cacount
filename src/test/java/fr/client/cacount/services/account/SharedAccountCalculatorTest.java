@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  */
 public class SharedAccountCalculatorTest {
     @Test
-    public void getOwners() throws Exception {
+    public void getOwners() throws Exception, SharedAccountCalculator.NoOwnerException {
         SharedAccountCalculator sharedAccountCalculator = new SharedAccountCalculator(new SharedEntries(new SharedEntry[]{
                 (SharedEntry) new SharedEntry().owner("Nicolas").price(10),
                 (SharedEntry) new SharedEntry().owner("Nicolas").price(10),

@@ -19,6 +19,7 @@ public class AndroidPreferenceManager implements PreferenceManagerInterface {
     private final String notification;
     private final String sharedNotification;
     private final String sharedFilename;
+    private final String transferType;
 
     public AndroidPreferenceManager(Context context) {
         this.preference = PreferenceManager.getDefaultSharedPreferences(context);
@@ -28,6 +29,7 @@ public class AndroidPreferenceManager implements PreferenceManagerInterface {
         notification = context.getString(R.string.pref_notification);
         sharedNotification = context.getString(R.string.pref_shared_notification);
         sharedFilename = context.getString(R.string.pref_shared_filename);
+        transferType = context.getString(R.string.pref_transfer_type);
     }
 
     @Override
@@ -53,5 +55,9 @@ public class AndroidPreferenceManager implements PreferenceManagerInterface {
 
     public String getSharedFilename() {
         return preference.getString(sharedFilename, "defaultSharedCacount.csv");
+    }
+
+    public String getTransferType() {
+        return preference.getString(transferType, "DAILY");
     }
 }
