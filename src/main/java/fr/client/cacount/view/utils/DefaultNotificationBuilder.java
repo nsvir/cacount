@@ -18,8 +18,8 @@ public class DefaultNotificationBuilder extends NotificationBuilder {
     public DefaultNotificationBuilder(Context context, NotificationContent content) {
         super(context);
 
-        setContentTitle(content.title);
         if (content != null) {
+            setContentTitle(content.title);
             if (content.content != null) {
                 setContentText(content.content);
             }
@@ -27,6 +27,6 @@ public class DefaultNotificationBuilder extends NotificationBuilder {
         setSmallIcon(R.drawable.ic_launcher);
         setPriority(PRIORITY);
         setOngoing(true);
-        addPendingIntent(InsertActivity.class, content.isShared);
+        addPendingIntent(InsertActivity.class);
     }
 }

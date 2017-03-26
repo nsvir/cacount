@@ -15,26 +15,22 @@ import fr.client.cacount.view.activity.InsertActivity;
 public class NotificationBuilder extends NotificationCompat.Builder {
 
     private final Context context;
-    private Notification notification;
 
     public NotificationBuilder(Context context) {
         super(context);
         this.context = context;
     }
 
-    public void addPendingIntent(Class className, Boolean isShared) {
+    public void addPendingIntent(Class className) {
         Intent intent = new Intent(context, className);
-        if (isShared) {
-            intent.putExtra(InsertActivity.IS_SHARED, true);
-        }
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         this.setContentIntent(pendingIntent);
     }
 
-    public Notification buildAndNotify(int notificatin_id) {
-        notification = this.build();
+    public Notification buildAndNotify(int notification_id) {
+        Notification notification = this.build();
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(notificatin_id, notification);
+        notificationManager.notify(notification_id, notification);
         return notification;
     }
 

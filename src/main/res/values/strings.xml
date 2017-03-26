@@ -13,4 +13,5 @@
     <string name="primary_account">Compte principal</string>
     <string name="shared_account">Compte commun</string>
     <string name="notification_showed">Afficher notification</string>
+    <string name="write_permission_required">Les droits d\'écriture sont requis pour l\'utilisation de l\'application</string>
 </resources>
