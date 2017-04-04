@@ -34,15 +34,20 @@ public class AndroidPreferenceManager implements PreferenceManagerInterface {
 
     @Override
     public BigDecimal getRatio() {
-        return new BigDecimal(preference.getString(ratio, "0.0"));
+        return new BigDecimal(getPreferenceString(ratio, "0.0"));
     }
 
     public String getFilename() {
-        return preference.getString(filename, "defaultCacount.csv");
+        return getPreferenceString(filename, "defaultCacount.csv");
+    }
+
+    private String getPreferenceString(String filename, String defValue) {
+        String string = preference.getString(filename, defValue);
+        return string == null || string.isEmpty() ? defValue : string;
     }
 
     public BigDecimal getDepenses() {
-        return new BigDecimal(preference.getString(depenses, "0.0"));
+        return new BigDecimal(getPreferenceString(depenses, "0.0"));
     }
 
     public boolean getNotificationDisplayed() {
@@ -54,10 +59,10 @@ public class AndroidPreferenceManager implements PreferenceManagerInterface {
     }
 
     public String getSharedFilename() {
-        return preference.getString(sharedFilename, "defaultSharedCacount.csv");
+        return getPreferenceString(sharedFilename, "defaultSharedCacount.csv");
     }
 
     public String getTransferType() {
-        return preference.getString(transferType, "DAILY");
+        return getPreferenceString(transferType, "DAILY");
     }
 }
