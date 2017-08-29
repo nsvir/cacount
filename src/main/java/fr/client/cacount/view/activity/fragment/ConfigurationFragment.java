@@ -1,13 +1,11 @@
 package fr.client.cacount.view.activity.fragment;
 
-import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
-import fr.client.cacount.Cacount;
 import fr.client.cacount.R;
 import fr.client.cacount.view.activity.UpdateActivity;
 

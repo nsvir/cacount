@@ -15,4 +15,5 @@
     <string name="notification_showed">Afficher notification</string>
     <string name="write_permission_required">Les droits d\'écriture sont requis pour l\'utilisation de l\'application</string>
     <string name="app_name_insert">Ajouter</string>
+    <string name="action_settings">settings</string>
 </resources>
